@@ -1,4 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+/*
+ * siv2r.github.io — design tokens
+ * Fonts loaded via <link> in each HTML <head> (not @import — avoids render-blocking CSSOM).
+ * Serif: Newsreader (kept deliberately; see .impeccable.md for the override note on reflex_fonts_to_reject).
+ * Sans:  Libre Franklin (magazine heritage, pairs with Newsreader).
+ * Mono:  Overpass Mono (humanist, typewriter-adjacent; not the reflex dev-mono).
+ */
 
 :root {
   --bg: #fcfaf6;
@@ -16,8 +22,8 @@
   --portrait-bg: #f2eee4;
 
   --font-serif: 'Newsreader', 'Iowan Old Style', 'Charter', Georgia, serif;
-  --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-sans: 'Libre Franklin', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'Overpass Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 }
 
 * { box-sizing: border-box; }
@@ -215,7 +221,7 @@ h1[data-hash]:hover::after { opacity: 1; }
 .writing-more:hover .arrow { transform: translateX(3px); }
 
 /* ========== /work ========== */
-.os { margin-bottom: 56px; }
+.os { margin-top: 8px; margin-bottom: 56px; }
 .os-item { margin-bottom: 32px; }
 .os-item:last-child { margin-bottom: 0; }
 .os-title {
