@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Recent posts — list format</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400&family=Libre+Franklin:wght@400;500;600&family=Overpass+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #fcfaf6;
+    --text-primary: #1a1712;
+    --text-body: #2a251d;
+    --text-secondary: #6a6355;
+    --text-tertiary: #8e8878;
+    --hairline: #ebe6da;
+    --row-hairline: #f0ebe1;
+    --section-hairline: #f5f1e6;
+    --separator: #c4bdaa;
+    --accent: #4a6b52;
+    --selection-bg: #d8e3d9;
+    --font-serif: 'Newsreader', Georgia, serif;
+    --font-sans: 'Libre Franklin', -apple-system, sans-serif;
+    --font-mono: 'Overpass Mono', ui-monospace, Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #efeae0;
+    color: var(--text-primary);
+    font-family: var(--font-serif);
+    font-size: 17px;
+    line-height: 1.55;
+    padding: 32px 24px 80px;
+  }
+  .page-intro { max-width: 1280px; margin: 0 auto 32px; font-family: var(--font-sans); }
+  .page-intro h1 { font-family: var(--font-sans); font-weight: 500; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-tertiary); margin: 0 0 4px; }
+  .page-intro p { margin: 0; color: var(--text-secondary); font-size: 14px; }
+
+  .grid {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+  .card {
+    background: var(--bg);
+    border-radius: 4px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.04), 0 12px 28px -16px rgba(60,50,30,0.18);
+    padding: 32px 36px 36px;
+    cursor: pointer;
+    transition: transform 180ms ease, box-shadow 180ms ease;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 1px 0 rgba(0,0,0,0.04), 0 18px 36px -16px rgba(60,50,30,0.22); }
+  .card-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+  .card-label .name { color: var(--text-tertiary); margin-left: 8px; font-weight: 400; text-transform: none; letter-spacing: 0; }
+
+  /* Shared list container — mimics .writing on the site */
+  .writing { margin-top: 0; }
+  .section-eyebrow {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin: 0 0 18px;
+  }
+  .writing-list { list-style: none; margin: 0; padding: 0; }
+  .writing-list li + li { border-top: 1px solid var(--row-hairline); }
+  .writing-list a {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 24px;
+    padding: 14px 0;
+    text-decoration: none;
+    color: inherit;
+  }
+  .writing-list .title {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    line-height: 1.35;
+    color: var(--text-body);
+  }
+  .writing-list .date {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-tertiary);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .writing-more {
+    display: inline-block;
+    margin-top: 22px;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-decoration: none;
+  }
+  .writing-more .arrow { display: inline-block; margin-left: 4px; }
+
+  /* ---- Option B: title + subtitle ---- */
+  .opt-b .writing-list a { display: block; padding: 16px 0; }
+  .opt-b .writing-list .row1 { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; }
+  .opt-b .writing-list .subtitle {
+    display: block;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+    line-height: 1.45;
+  }
+
+  /* ---- Option C: numbered index ---- */
+  .opt-c .writing-list a {
+    display: grid;
+    grid-template-columns: 36px 1fr auto;
+    gap: 18px;
+    align-items: baseline;
+    padding: 14px 0;
+  }
+  .opt-c .writing-list .num {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-tertiary);
+  }
+
+  /* ---- Option D: grouped by year ---- */
+  .opt-d .year-group + .year-group { margin-top: 22px; }
+  .opt-d .year-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--text-tertiary);
+    margin: 0 0 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--row-hairline);
+  }
+  .opt-d .writing-list li + li { border-top: 1px solid var(--row-hairline); }
+  .opt-d .writing-list a { padding: 12px 0; }
+
+  /* ---- Option A is the baseline (no overrides) ---- */
+
+  .footnote { max-width: 1280px; margin: 32px auto 0; font-family: var(--font-sans); font-size: 12px; color: var(--text-tertiary); }
+</style>
+</head>
+<body>
+  <div class="page-intro">
+    <h1>Recent from Nonce Sense — four rendering options</h1>
+    <p>All using real titles from the feed. The current site uses Option A, capped at 3.</p>
+  </div>
+
+  <div class="grid">
+
+    <!-- ========== A ========== -->
+    <div class="card opt-a">
+      <div class="card-label">Option A <span class="name">— current style, 5 entries</span></div>
+      <section class="writing">
+        <h2 class="section-eyebrow">Recent from Nonce Sense</h2>
+        <ol class="writing-list">
+          <li><a href="#"><span class="title">Quarterly Progress Report #4</span><span class="date">2025·05·16</span></a></li>
+          <li><a href="#"><span class="title">Quarterly Progress Report #3</span><span class="date">2025·02·12</span></a></li>
+          <li><a href="#"><span class="title">Quarterly Progress Report #2</span><span class="date">2025·02·12</span></a></li>
+          <li><a href="#"><span class="title">Quarterly Progress Report #1</span><span class="date">2025·02·12</span></a></li>
+          <li><a href="#"><span class="title">Unmasking the Birthday Attack: A Mathematical Analysis</span><span class="date">2023·01·05</span></a></li>
+        </ol>
+        <a class="writing-more" href="#">more on nonce sense <span class="arrow">→</span></a>
+      </section>
+    </div>
+
+    <!-- ========== B ========== -->
+    <div class="card opt-b">
+      <div class="card-label">Option B <span class="name">— title + subtitle (dek)</span></div>
+      <section class="writing">
+        <h2 class="section-eyebrow">Recent from Nonce Sense</h2>
+        <ol class="writing-list">
+          <li><a href="#">
+            <span class="row1"><span class="title">Quarterly Progress Report #4</span><span class="date">2025·05·16</span></span>
+            <span class="subtitle">What I worked on: Feb, Mar &amp; Apr (2025)</span>
+          </a></li>
+          <li><a href="#">
+            <span class="row1"><span class="title">Quarterly Progress Report #3</span><span class="date">2025·02·12</span></span>
+            <span class="subtitle">What I worked on: Nov '24 – Jan '25</span>
+          </a></li>
+          <li><a href="#">
+            <span class="row1"><span class="title">Quarterly Progress Report #2</span><span class="date">2025·02·12</span></span>
+            <span class="subtitle">What I worked on: Aug, Sept &amp; Oct (2024)</span>
+          </a></li>
+          <li><a href="#">
+            <span class="row1"><span class="title">Quarterly Progress Report #1</span><span class="date">2025·02·12</span></span>
+            <span class="subtitle">What I worked on: May, June &amp; July (2024)</span>
+          </a></li>
+          <li><a href="#">
+            <span class="row1"><span class="title">Unmasking the Birthday Attack: A Mathematical Analysis</span><span class="date">2023·01·05</span></span>
+            <span class="subtitle">A deep dive into the probability-based approach for finding hash collisions.</span>
+          </a></li>
+        </ol>
+        <a class="writing-more" href="#">more on nonce sense <span class="arrow">→</span></a>
+      </section>
+    </div>
+
+    <!-- ========== C ========== -->
+    <div class="card opt-c">
+      <div class="card-label">Option C <span class="name">— numbered index</span></div>
+      <section class="writing">
+        <h2 class="section-eyebrow">Recent from Nonce Sense</h2>
+        <ol class="writing-list">
+          <li><a href="#"><span class="num">№ 01</span><span class="title">Quarterly Progress Report #4</span><span class="date">2025·05·16</span></a></li>
+          <li><a href="#"><span class="num">№ 02</span><span class="title">Quarterly Progress Report #3</span><span class="date">2025·02·12</span></a></li>
+          <li><a href="#"><span class="num">№ 03</span><span class="title">Quarterly Progress Report #2</span><span class="date">2025·02·12</span></a></li>
+          <li><a href="#"><span class="num">№ 04</span><span class="title">Quarterly Progress Report #1</span><span class="date">2025·02·12</span></a></li>
+          <li><a href="#"><span class="num">№ 05</span><span class="title">Unmasking the Birthday Attack: A Mathematical Analysis</span><span class="date">2023·01·05</span></a></li>
+        </ol>
+        <a class="writing-more" href="#">more on nonce sense <span class="arrow">→</span></a>
+      </section>
+    </div>
+
+    <!-- ========== D ========== -->
+    <div class="card opt-d">
+      <div class="card-label">Option D <span class="name">— grouped by year</span></div>
+      <section class="writing">
+        <h2 class="section-eyebrow">Recent from Nonce Sense</h2>
+        <div class="year-group">
+          <p class="year-label">2025</p>
+          <ol class="writing-list">
+            <li><a href="#"><span class="title">Quarterly Progress Report #4</span><span class="date">May 16</span></a></li>
+            <li><a href="#"><span class="title">Quarterly Progress Report #3</span><span class="date">Feb 12</span></a></li>
+            <li><a href="#"><span class="title">Quarterly Progress Report #2</span><span class="date">Feb 12</span></a></li>
+            <li><a href="#"><span class="title">Quarterly Progress Report #1</span><span class="date">Feb 12</span></a></li>
+          </ol>
+        </div>
+        <div class="year-group">
+          <p class="year-label">2023</p>
+          <ol class="writing-list">
+            <li><a href="#"><span class="title">Unmasking the Birthday Attack: A Mathematical Analysis</span><span class="date">Jan 05</span></a></li>
+          </ol>
+        </div>
+        <a class="writing-more" href="#">more on nonce sense <span class="arrow">→</span></a>
+      </section>
+    </div>
+
+  </div>
+
+  <p class="footnote">All four pull live from the Substack RSS via the existing CI script — the only change in the script itself is bumping <code>N</code> from 3 to 5 (and, for B, also extracting <code>&lt;description&gt;</code>; for D, grouping in JS).</p>
+</body>
+</html>

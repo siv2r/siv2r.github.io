@@ -43,7 +43,7 @@ body {
 ::selection { background: var(--selection-bg); color: var(--text-primary); text-shadow: none; }
 
 .container {
-  max-width: 720px;
+  max-width: 880px;
   margin: 0 auto;
   padding: 64px 32px 96px;
 }
@@ -156,7 +156,7 @@ h1[data-hash]:hover::after { opacity: 1; }
 }
 .photo-img.is-active { opacity: 1; }
 
-.body { max-width: 56ch; hanging-punctuation: first last; }
+.body { max-width: 64ch; hanging-punctuation: first last; }
 .body p { margin: 0 0 16px; color: var(--text-body); text-wrap: pretty; }
 .body em, .body cite { font-style: italic; }
 
@@ -248,7 +248,7 @@ h1[data-hash]:hover::after { opacity: 1; }
 .os-desc {
   color: var(--text-body);
   margin: 0 0 12px;
-  max-width: 62ch;
+  max-width: 80ch;
   hanging-punctuation: first last;
   text-wrap: pretty;
 }
@@ -328,7 +328,7 @@ h1[data-hash]:hover::after { opacity: 1; }
 
 /* ========== /contact ========== */
 .intro {
-  max-width: 56ch;
+  max-width: 80ch;
   color: var(--text-body);
   margin: 8px 0 36px;
   hanging-punctuation: first last;
