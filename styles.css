@@ -123,18 +123,6 @@ h1 {
   color: var(--text-primary);
   cursor: default;
 }
-h1[data-hash]::after {
-  content: " · " attr(data-hash);
-  font-family: var(--font-mono);
-  font-size: 0.5em;
-  color: var(--text-tertiary);
-  letter-spacing: 0.02em;
-  vertical-align: 0.22em;
-  opacity: 0;
-  transition: opacity 250ms var(--ease-out);
-}
-h1[data-hash]:hover::after { opacity: 1; }
-
 /* Tag line */
 .tag {
   color: var(--text-secondary);
