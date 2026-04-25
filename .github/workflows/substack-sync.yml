@@ -2,7 +2,7 @@ name: Sync Substack posts
 
 on:
   schedule:
-    - cron: '17 * * * *'
+    - cron: '7 12 1,15 * *'
   workflow_dispatch:
 
 permissions:
