@@ -270,12 +270,10 @@ h1[data-hash]:hover::after { opacity: 1; }
   margin: 0 0 10px;
 }
 .os-meta .sep { font-style: normal; color: var(--separator); margin: 0 0.4em; }
-.os-meta .funding { display: inline-block; font-style: italic; color: var(--text-tertiary); }
-.os-meta .funding::before { content: "\2003\2014\2003"; color: var(--separator); font-style: normal; }
 .os-desc {
   color: var(--text-body);
   margin: 0 0 12px;
-  max-width: 80ch;
+  max-width: 85ch;
   hanging-punctuation: first last;
   text-wrap: pretty;
 }
@@ -352,6 +350,15 @@ h1[data-hash]:hover::after { opacity: 1; }
   font-variant-numeric: tabular-nums slashed-zero;
   white-space: nowrap;
 }
+
+.travel-prose {
+  max-width: 85ch;
+  color: var(--text-body);
+  margin: 0;
+  hanging-punctuation: first last;
+  text-wrap: pretty;
+}
+.travel-prose em { font-style: italic; }
 
 /* ========== /contact ========== */
 .intro {

@@ -21,14 +21,16 @@
       </nav>
     </header>
 
-    <main>
+    <main aria-label="Work">
+      <p class="travel-prose" style="margin-bottom: 48px;">Almost everything below is one project at heart: protocols built on top of Schnorr signatures. Threshold variants so a key can be split safely. Adaptor signatures for payments conditioned on a secret. Faster verification for the chain. I write the spec text, the reference Python, and the test vectors that go with them. It's careful, slow work, and I find it deeply satisfying.</p>
+
       <section class="os">
         <h2 class="section-eyebrow">Open Source</h2>
 
         <article class="os-item">
           <h3 class="os-title">BIP-445 — FROST Signing</h3>
-          <p class="os-meta">BIP author<span class="sep">·</span>2024–present<span class="funding">funded by Spiral (Block, Inc)</span></p>
-          <p class="os-desc">A specification for FROST signing on BIP340-compatible threshold Schnorr signatures, with support for BIP32 key derivation and BIP341 Taproot tweaking. I authored the BIP text, the Python reference implementation, and test vector suites covering every protocol algorithm — NonceGen, NonceAgg, Sign, DeterministicSign, PartialSigVerify, PartialSigAgg.</p>
+          <p class="os-meta">BIP author<span class="sep">·</span>2024–present</p>
+          <p class="os-desc">A specification for FROST: threshold Schnorr signatures compatible with BIP340, with support for BIP32 key derivation and BIP341 Taproot tweaking. I wrote the BIP text, the Python reference implementation, and the test-vector suite covering the signing-flow algorithms (NonceGen, NonceAgg, Sign, DeterministicSign, PartialSigVerify, PartialSigAgg). The PR is in review on bitcoin/bips and close to merge.</p>
           <p class="os-links">
             <a href="https://github.com/bitcoin/bips/pull/2070"><span class="arrow" aria-hidden="true">↗</span>bitcoin/bips#2070</a>
             <a href="https://github.com/siv2r/bip-frost-signing"><span class="arrow" aria-hidden="true">↗</span>siv2r/bip-frost-signing</a>
@@ -38,67 +40,90 @@
         <article class="os-item">
           <h3 class="os-title">ChillDKG BIP</h3>
           <p class="os-meta">co-author, with Blockstream Research<span class="sep">·</span>2024–present</p>
-          <p class="os-desc">A distributed key-generation protocol for FROST threshold signatures without a trusted dealer. I contributed to the Python reference implementation — message serialization, error handling, and comprehensive test vectors — and co-authored the specification.</p>
+          <p class="os-desc">A distributed key-generation protocol that lets a FROST group set up a shared key without trusting a dealer. I co-authored the specification and contributed to the Python reference: message serialization, error handling, the test vectors. Pairs with BIP-445; together they're the spec and the setup story for a working threshold Schnorr stack.</p>
           <p class="os-links">
             <a href="https://github.com/BlockstreamResearch/bip-frost-dkg"><span class="arrow" aria-hidden="true">↗</span>BlockstreamResearch/bip-frost-dkg</a>
           </p>
         </article>
 
         <article class="os-item">
-          <h3 class="os-title">Schnorr Adaptor Signatures</h3>
-          <p class="os-meta">contributor<span class="sep">·</span>2024</p>
-          <p class="os-desc">Rebased and extended the Schnorr adaptor signatures module in secp256k1-zkp, resolving pending review comments and adding a Multi-Hop Locks protocol example. Also authored Rust bindings in rust-secp256k1-zkp with type-safe <code>Adaptor</code> and <code>SecretAdaptor</code> wrappers.</p>
-          <p class="os-links">
-            <a href="https://github.com/BlockstreamResearch/secp256k1-zkp/pull/299"><span class="arrow" aria-hidden="true">↗</span>secp256k1-zkp#299</a>
-            <a href="https://github.com/BlockstreamResearch/rust-secp256k1-zkp/pull/89"><span class="arrow" aria-hidden="true">↗</span>rust-secp256k1-zkp#89</a>
-          </p>
-        </article>
-
-        <article class="os-item">
           <h3 class="os-title">Schnorr batch verification — libsecp256k1</h3>
-          <p class="os-meta">Summer of Bitcoin intern, mentored by Jonas Nick<span class="sep">·</span>2022</p>
-          <p class="os-desc">A batch verification module for BIP340 signatures and tweaked-key checks, up to 50% faster than individual verification. Selected as one of 83 interns from 20,000+ applicants. Later reviewed secp256k1#1789 (an ecmult refactor unlocking Pippenger acceleration), evaluating the ABCD cost-model calibration across 13 algorithms.</p>
+          <p class="os-meta">module author, mentored by Jonas Nick<span class="sep">·</span>2022–present</p>
+          <p class="os-desc">A batch verification module for BIP340 signatures and tweaked-key checks. The first version (secp256k1#1134) came together during a Summer of Bitcoin internship under Jonas Nick and shipped at roughly 1.2× the speed of one-at-a-time verification. Since then it's had a few rounds of follow-up; most recently I reviewed secp256k1#1789, an ecmult refactor that unlocks Pippenger acceleration and pushes the speedup to nearly 2×. The review walked through ABCD cost-model calibration across 13 algorithms.</p>
           <p class="os-links">
             <a href="https://github.com/bitcoin-core/secp256k1/pull/1134"><span class="arrow" aria-hidden="true">↗</span>secp256k1#1134</a>
             <a href="https://github.com/bitcoin-core/secp256k1/pull/1789"><span class="arrow" aria-hidden="true">↗</span>secp256k1#1789</a>
           </p>
         </article>
+
+        <article class="os-item">
+          <h3 class="os-title">Schnorr Adaptor Signatures</h3>
+          <p class="os-meta">contributor<span class="sep">·</span>2024</p>
+          <p class="os-desc">I rebased and extended the Schnorr adaptor signatures module in secp256k1-zkp. That work cleared the pending review comments and added a Multi-Hop Locks example; the module now ships with a worked protocol alongside it. The Rust bindings in rust-secp256k1-zkp came out of the same effort, with type-safe <code>Adaptor</code> and <code>SecretAdaptor</code> wrappers.</p>
+          <p class="os-links">
+            <a href="https://github.com/BlockstreamResearch/secp256k1-zkp/pull/299"><span class="arrow" aria-hidden="true">↗</span>secp256k1-zkp#299</a>
+            <a href="https://github.com/BlockstreamResearch/rust-secp256k1-zkp/pull/89"><span class="arrow" aria-hidden="true">↗</span>rust-secp256k1-zkp#89</a>
+          </p>
+        </article>
       </section>
 
-      <section class="idx">
-        <h2 class="section-eyebrow">Talks</h2>
-        <ol class="idx-list">
+      <section class="idx" aria-labelledby="talks-heading">
+        <h2 id="talks-heading" class="section-eyebrow">Talks &amp; Press</h2>
+        <ol class="writing-list">
+          <li>
+            <a href="https://spiralbtc.substack.com/i/193842474/builder-profile-sivaram" rel="external noopener">
+              <span class="num" aria-hidden="true">№ 01</span>
+              <span class="title">Builder Profile: Sivaram</span>
+              <span class="subtitle">Spiral AI Report</span>
+              <span class="date"><time datetime="2026-04-15" aria-label="April 15, 2026">2026·04·15</time></span>
+            </a>
+          </li>
           <li>
             <a href="https://github.com/siv2r/bip-frost-signing/tree/boss-workshop">
-              <span class="title">FROST Signing Workshop<span class="venue">Bitshala BOSS, Bangalore</span></span>
-              <span class="date">2025·11</span>
+              <span class="num" aria-hidden="true">№ 02</span>
+              <span class="title">FROST Signing Workshop</span>
+              <span class="subtitle">Bitshala BOSS, Bangalore</span>
+              <span class="date"><time datetime="2025-11" aria-label="November 2025">2025·11</time></span>
             </a>
           </li>
           <li>
-            <a href="https://www.canva.com/design/DAGXgESWSoo/Ij4jXPeVR0IVlGiwVwu2sA/edit">
-              <span class="title">Introduction to Schnorr Signatures<span class="venue">Bitshala BOSS, Bangalore</span></span>
-              <span class="date">2024·11</span>
+            <a href="https://spiralbtc.substack.com/p/nerd-of-the-month-frostpunk" rel="external noopener">
+              <span class="num" aria-hidden="true">№ 03</span>
+              <span class="title">Nerd of the Month: Frostpunk</span>
+              <span class="subtitle">Spiral Newsletter</span>
+              <span class="date"><time datetime="2025-06-25" aria-label="June 25, 2025">2025·06·25</time></span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.canva.com/design/DAGXgESWSoo/Ij4jXPeVR0IVlGiwVwu2sA/edit" rel="external noopener">
+              <span class="num" aria-hidden="true">№ 04</span>
+              <span class="title">Introduction to Schnorr Signatures</span>
+              <span class="subtitle">Bitshala BOSS, Bangalore</span>
+              <span class="date"><time datetime="2024-11" aria-label="November 2024">2024·11</time></span>
+            </a>
+          </li>
+          <li>
+            <a href="https://bitcoinops.org/en/podcast/2024/08/13/" rel="external noopener">
+              <span class="num" aria-hidden="true">№ 05</span>
+              <span class="title">Newsletter #315</span>
+              <span class="subtitle">Bitcoin Optech Podcast</span>
+              <span class="date"><time datetime="2024-08-13" aria-label="August 13, 2024">2024·08·13</time></span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.youtube.com/watch?v=rD9irTmzGKA" rel="external noopener">
+              <span class="num" aria-hidden="true">№ 06</span>
+              <span class="title">The Summer of Bitcoin Experience</span>
+              <span class="subtitle">SoBE Podcast</span>
+              <span class="date"><time datetime="2022-12-30" aria-label="December 30, 2022">2022·12·30</time></span>
             </a>
           </li>
         </ol>
       </section>
 
-      <section class="idx">
-        <h2 class="section-eyebrow">Conferences</h2>
-        <ol class="idx-list">
-          <li>
-            <div class="row-inline">
-              <span class="title">Real World Crypto<span class="venue">Taipei, Taiwan · IACR</span></span>
-              <span class="date">2026·03</span>
-            </div>
-          </li>
-          <li>
-            <div class="row-inline">
-              <span class="title">CryptoCamp<span class="venue">Lagos, Portugal · Chaincode Labs</span></span>
-              <span class="date">2025·08</span>
-            </div>
-          </li>
-        </ol>
+      <section class="idx" aria-labelledby="travel-heading">
+        <h2 id="travel-heading" class="section-eyebrow">Where I've been / where I'll be</h2>
+        <p class="travel-prose">So far I've been to <em>CryptoCamp</em> (Lagos, Portugal · 2025) and <em>Real World Crypto</em> (Taipei · 2026). On the list of places I'd like to get to next: <em>Asiacrypt 2026</em> in Hong Kong, and <em>PKC 2027</em> back in Taipei. If you know a good cryptography conference I should be at, find me on the <a href="/contact/">contact</a> page.</p>
       </section>
     </main>
   </div>
