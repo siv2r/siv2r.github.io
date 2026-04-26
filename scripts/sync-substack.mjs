@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, writeFile, rename } from 'node:fs/promises';
 
 const FEED = 'https://siv2r.substack.com/feed';
 const HTML = 'index.html';
@@ -68,6 +68,7 @@ for (const m of xml.matchAll(/<item\b[^>]*>([\s\S]*?)<\/item>/g)) {
   if (title && link && pubDate) items.push({ title, link, pubDate, subtitle });
 }
 
+items.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
 const top = items.slice(0, N);
 if (top.length === 0) {
   console.error('no items parsed from feed');
@@ -100,8 +101,10 @@ const block = `${START}\n${rendered}\n${END}`;
 const out = html.slice(0, s) + block + html.slice(e + END.length);
 
 if (out === html) {
-  console.log('no changes');
+  console.log('no new blogs were found');
   process.exit(0);
 }
-await writeFile(HTML, out);
+const TMP = `${HTML}.tmp`;
+await writeFile(TMP, out);
+await rename(TMP, HTML);
 console.log(`updated ${HTML} with ${top.length} items`);
