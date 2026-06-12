@@ -12,7 +12,7 @@
   <meta name="twitter:card" content="summary">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400&family=Libre+Franklin:wght@400;500;600&family=Overpass+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;1,400;1,500&family=IBM+Plex+Sans:wght@400;500&display=swap">
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
@@ -25,37 +25,44 @@
         <a href="/sivaram-resume.pdf" download>resume<span class="ext">↓</span></a>
         <a href="/contact/">contact</a>
       </nav>
+      <div class="rule-double"></div>
     </header>
 
     <main>
       <h1>Sivaram Dhakshinamoorthy</h1>
       <p class="tag">cryptography engineer<span class="sep">·</span><a class="handle" href="https://x.com/siv2r">@siv2r</a></p>
 
-      <div class="row">
-        <div class="photo" role="img" aria-label="Portrait of Sivaram Dhakshinamoorthy">
-          <div class="photo-img is-active" style="background-image: url('/photos/portrait-1.jpg')"></div>
-          <div class="photo-img" style="background-image: url('/photos/portrait-2.jpg')"></div>
-          <div class="photo-img" style="background-image: url('/photos/portrait-3.jpg')"></div>
-          <div class="photo-img" style="background-image: url('/photos/portrait-4.jpg')"></div>
-          <div class="photo-img" style="background-image: url('/photos/portrait-5.jpg')"></div>
-          <div class="photo-img" style="background-image: url('/photos/portrait-6.jpg')"></div>
-          <div class="photo-img" style="background-image: url('/photos/portrait-7.jpg')"></div>
-          <div class="photo-img" style="background-image: url('/photos/portrait-8.jpg')"></div>
+      <section aria-labelledby="about-heading">
+        <h2 id="about-heading" class="section-eyebrow">§ 1 · About</h2>
+        <div class="row">
+          <figure class="figure">
+            <div class="photo" role="img" aria-label="Portrait of Sivaram Dhakshinamoorthy">
+                <div class="photo-img is-active" style="background-image: url('/photos/portrait-1.jpg')"></div>
+                <div class="photo-img" style="background-image: url('/photos/portrait-2.jpg')"></div>
+                <div class="photo-img" style="background-image: url('/photos/portrait-3.jpg')"></div>
+                <div class="photo-img" style="background-image: url('/photos/portrait-4.jpg')"></div>
+                <div class="photo-img" style="background-image: url('/photos/portrait-5.jpg')"></div>
+                <div class="photo-img" style="background-image: url('/photos/portrait-6.jpg')"></div>
+                <div class="photo-img" style="background-image: url('/photos/portrait-7.jpg')"></div>
+                <div class="photo-img" style="background-image: url('/photos/portrait-8.jpg')"></div>
+            </div>
+            <figcaption class="figcap">Fig. 1 — the author; hover to verify.</figcaption>
+          </figure>
+          <div class="body">
+            <p>Hi, I'm Sivaram. I work on the cryptography that secures Bitcoin. This site is where the writing lives, and where you can find me elsewhere online.</p>
+            <p>I did my M.Sc in Mathematics and Computing at IIT Kharagpur in 2023, and have been at this independently since, with a <a href="https://spiral.xyz/">Spiral</a> grant funding the work. Most of it lives on <a href="https://github.com/siv2r">GitHub</a>. Right now I'm deep in threshold signatures (FROST, ChillDKG) and adaptor signatures, and want to move into provable-security research next.</p>
+            <p>I write <em><a href="https://siv2r.substack.com">Nonce Sense</a></em>, where I try to make cryptography and the math behind it feel less intimidating and a little fun. When I'm not at the keyboard, I'm at the gym, lost in a novel, playing FC25, or daydreaming about sinking the perfect jump shot. Based in India, on the internet as <a href="https://x.com/siv2r">@siv2r</a>.</p>
+          </div>
         </div>
-        <div class="body">
-          <p>Hi, I'm Sivaram. I work on the cryptography that secures Bitcoin. This site is where the writing lives, and where you can find me elsewhere online.</p>
-          <p>I did my M.Sc in Mathematics and Computing at IIT Kharagpur in 2023, and have been at this independently since, with a <a href="https://spiral.xyz/">Spiral</a> grant funding the work. Most of it lives on <a href="https://github.com/siv2r">GitHub</a>. Right now I'm deep in threshold signatures (FROST, ChillDKG) and adaptor signatures, and want to move into provable-security research next.</p>
-          <p>I write <em><a href="https://siv2r.substack.com">Nonce Sense</a></em>, where I try to make cryptography and the math behind it feel less intimidating and a little fun. When I'm not at the keyboard, I'm at the gym, lost in a novel, playing FC25, or daydreaming about sinking the perfect jump shot. Based in India, on the internet as <a class="handle" href="https://x.com/siv2r">@siv2r</a>.</p>
-        </div>
-      </div>
+      </section>
 
       <section class="writing" aria-labelledby="writing-heading">
-        <h2 id="writing-heading" class="section-eyebrow">Recent from Nonce Sense</h2>
+        <h2 id="writing-heading" class="section-eyebrow">§ 2 · Recent from Nonce Sense</h2>
         <ol class="writing-list">
 <!-- substack:start -->
           <li>
             <a href="https://siv2r.substack.com/p/quarterly-progress-report-4">
-              <span class="num" aria-hidden="true">№ 01</span>
+              <span class="num" aria-hidden="true">[1]</span>
               <span class="title">Quarterly Progress Report #4</span>
               <span class="subtitle">What I worked on: Feb, Mar &amp; Apr (2025)</span>
               <span class="date"><time datetime="2025-05-16" aria-label="May 16, 2025">2025·05·16</time></span>
@@ -63,7 +70,7 @@
           </li>
           <li>
             <a href="https://siv2r.substack.com/p/quarterly-progress-report-3">
-              <span class="num" aria-hidden="true">№ 02</span>
+              <span class="num" aria-hidden="true">[2]</span>
               <span class="title">Quarterly Progress Report #3</span>
               <span class="subtitle">What I worked on: Nov '24 - Jan '25</span>
               <span class="date"><time datetime="2025-02-12" aria-label="February 12, 2025">2025·02·12</time></span>
@@ -71,7 +78,7 @@
           </li>
           <li>
             <a href="https://siv2r.substack.com/p/quarterly-progress-report-2">
-              <span class="num" aria-hidden="true">№ 03</span>
+              <span class="num" aria-hidden="true">[3]</span>
               <span class="title">Quarterly Progress Report #2</span>
               <span class="subtitle">What I worked on: Aug, Sept &amp; Oct (2024)</span>
               <span class="date"><time datetime="2025-02-12" aria-label="February 12, 2025">2025·02·12</time></span>
@@ -79,7 +86,7 @@
           </li>
           <li>
             <a href="https://siv2r.substack.com/p/quarterly-progress-report-1">
-              <span class="num" aria-hidden="true">№ 04</span>
+              <span class="num" aria-hidden="true">[4]</span>
               <span class="title">Quarterly Progress Report #1</span>
               <span class="subtitle">What I worked on: May, June &amp; July (2024)</span>
               <span class="date"><time datetime="2025-02-12" aria-label="February 12, 2025">2025·02·12</time></span>
@@ -87,7 +94,7 @@
           </li>
           <li>
             <a href="https://siv2r.substack.com/p/unmasking-the-birthday-attack-a-mathematical">
-              <span class="num" aria-hidden="true">№ 05</span>
+              <span class="num" aria-hidden="true">[5]</span>
               <span class="title">Unmasking the Birthday Attack: A Mathematical Analysis</span>
               <span class="subtitle">Exploring the mathematics behind the birthday attack: A deep dive into the probability-based approach for finding hash collisions.</span>
               <span class="date"><time datetime="2023-01-05" aria-label="January 5, 2023">2023·01·05</time></span>
@@ -95,8 +102,10 @@
           </li>
 <!-- substack:end -->
         </ol>
-        <a class="writing-more" href="https://siv2r.substack.com">more on nonce sense <span class="arrow" aria-hidden="true">→</span></a>
+        <p class="writing-more">see also: <a href="https://siv2r.substack.com">nonce sense <span class="ext">↗</span></a></p>
       </section>
+
+      <div class="qed" aria-hidden="true">∎</div>
     </main>
   </div>
 
