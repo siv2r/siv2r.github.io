@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>nonce-fn-defense-in-depth-inputs</title>
+  <meta name="description" content="nonce-fn-defense-in-depth-inputs">
+  <meta property="og:title" content="nonce-fn-defense-in-depth-inputs">
+  <meta property="og:description" content="nonce-fn-defense-in-depth-inputs">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://siv2r.in/notes/nonce-fn-defense-in-depth-inputs/">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://siv2r.in/notes/nonce-fn-defense-in-depth-inputs/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400&family=Libre+Franklin:wght@400;500;600&family=Overpass+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/notes.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.47/dist/katex.min.css" integrity="sha384-nH0MfJ44wi1dd7w6jinlyBgljjS8EJAh2JBoRad8a3VDw2K69vfaaqm4WnR+gXtA" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <nav class="topbar">
+        <a href="/">home</a>
+        <a href="/work/">work</a>
+        <a href="https://siv2r.substack.com" rel="external noopener">writing<span class="ext">↗</span></a>
+        <a href="/notes/" aria-current="page">notes</a>
+        <a href="/sivaram-resume.pdf" download>resume<span class="ext">↓</span></a>
+        <a href="/contact/">contact</a>
+      </nav>
+    </header>
+    <main>
+      <article class="note">
+        <h1>nonce-fn-defense-in-depth-inputs</h1>
+        <p class="note-meta">Tue Apr 14 2026</p>
+        <div class="callout callout-info">
+<p>Why this note exists
+Triggered by <a href="https://github.com/bitcoin/bips/pull/2070#discussion_r2825786406">a review comment on bitcoin/bips#2070</a> suggesting <code>XonlyPk</code> instead of <code>PlainPk</code> for <code>thresh_pk</code> inside <code>nonce_gen</code>. The interesting part isn't the choice itself — it's the framing that makes the choice obvious.</p>
+</div>
+<h2 id="the-underlying-concept-hedged-synthetic-nonces">The underlying concept: hedged (synthetic) nonces</h2>
+<p>Schnorr nonce <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.0315em;">k</span></span></span></span> must be unpredictable and never reused across different messages with the same key — reuse leaks the secret. Three strategies:</p>
+<ol>
+<li><strong>Pure random</strong>: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>←</mo><mtext>$</mtext></mrow><annotation encoding="application/x-tex">k \gets \text{\textdollar}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.0315em;">k</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">←</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord text"><span class="mord">$</span></span></span></span></span>. Catastrophic if RNG fails.</li>
+<li><strong>Pure deterministic</strong> (<a href="https://datatracker.ietf.org/doc/html/rfc6979">RFC 6979</a>): <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mtext>PRF</mtext><mo stretchy="false">(</mo><mi>s</mi><mi>k</mi><mo separator="true">,</mo><mi>m</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">k = \text{PRF}(sk, m)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.0315em;">k</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">PRF</span></span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.0315em;">k</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">m</span><span class="mclose">)</span></span></span></span>. Catastrophic under fault attacks; and in <em>multi-party</em> DL signatures (<a href="/notes/musig2-linearity-insight/">MuSig</a>/FROST) it enables key-recovery attacks by a malicious co-signer who replays the session with a different message — this is why the BIP explicitly forbids fully deterministic nonces.</li>
+<li><strong>Hedged/synthetic</strong> (<a href="https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki#default-signing">BIP340</a>, <a href="https://github.com/bitcoin/bips/blob/master/bip-0327.mediawiki#nonce-generation">BIP327</a>, Ed25519-hedged): <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mi>H</mi><mo stretchy="false">(</mo><mtext>rand</mtext><mtext> </mtext><mi mathvariant="normal">∥</mi><mtext> </mtext><mi>s</mi><mi>k</mi><mtext> </mtext><mi mathvariant="normal">∥</mi><mtext> </mtext><mi>m</mi><mtext> </mtext><mi mathvariant="normal">∥</mi><mtext> </mtext><mo>…</mo><mtext> </mtext><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">k = H(\text{rand} \,\|\, sk \,\|\, m \,\|\, \dots)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.0315em;">k</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0813em;">H</span><span class="mopen">(</span><span class="mord text"><span class="mord">rand</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">∥</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.0315em;">k</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">∥</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">∥</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mclose">)</span></span></span></span>. Secure if <strong>either</strong> <code>rand</code> is good <strong>or</strong> the deterministic inputs uniquely bind the session. This is what <code>nonce_gen</code> does.</li>
+</ol>
+<p>Core references worth reading:</p>
+<ul>
+<li><strong>BIP340 Default Signing</strong> — the synthetic-nonce construction, and the rationale note explaining why <code>aux_rand</code> is XORed into <code>sk</code> (<a href="https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki#default-signing">link</a>)</li>
+<li><strong>BIP327 NonceGen</strong> — MuSig2's version, essentially what we copied (<a href="https://github.com/bitcoin/bips/blob/master/bip-0327.mediawiki#nonce-generation">link</a>)</li>
+<li><strong>Aranha, Novaes, Takahashi, Yarom, Tibouchi — "LadderLeak" / "Hedged Public-Key Signatures in the Standard Model"</strong> (PKC 2020, <a href="https://eprint.iacr.org/2019/956">eprint 2019/956</a>) — the formal model for why hedging gives you "best of both worlds."</li>
+<li><strong><a href="https://datatracker.ietf.org/doc/html/rfc6979">RFC 6979</a></strong> — the deterministic baseline you're hedging against.</li>
+<li><strong>NIST SP 800-186 / FIPS 186-5 §6.3</strong> — nonce requirements for ECDSA/EdDSA.</li>
+</ul>
+<h2 id="choosing-inputs-to-the-hash">Choosing inputs to the hash</h2>
+<p>The question "what goes in the hash" separates cleanly into two layers.</p>
+<p><strong>Layer 1 — what's needed for security when <code>rand'</code> is uniform.</strong>
+Answer: nothing else. A uniform 32-byte <code>rand'</code> hashed through SHA256 already gives a uniform 32-byte nonce. Every other input is redundant <em>in this case</em>.</p>
+<p><strong>Layer 2 — what's needed for security when <code>rand'</code> fails</strong> (repeats, low entropy, biased, or attacker-controlled).
+Then the hash inputs must, collectively, <strong>uniquely identify the signing session</strong> so that two distinct sessions can never collide on the hash input. For a signer that means binding:</p>
+<ul>
+<li>its own secret share (so different keys → different <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.0315em;">k</span></span></span></span>),</li>
+<li>the message (so message-substitution attacks can't reuse <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.0315em;">k</span></span></span></span>),</li>
+<li>the group context (threshold pubkey / other signers' shares) — so a malicious peer can't trick you into reusing <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.0315em;">k</span></span></span></span> across different groups,</li>
+<li>anything else session-specific (<code>extra_in</code>).</li>
+</ul>
+<p>This is the "defense-in-depth" framing in the BIP. The guiding principle is <strong>domain separation / session binding</strong>: the hash input should be a canonical, injective encoding of the session. Length prefixes (<code>len(x) ‖ x</code>) are exactly for this — they prevent ambiguous concatenation (<code>"ab" ‖ "c"</code> vs <code>"a" ‖ "bc"</code>).</p>
+<h2 id="xonlypk-vs-plainpk-for-thresh_pk">XonlyPk vs PlainPk for <code>thresh_pk</code></h2>
+<p>Given the framing above, here's the actual tradeoff:</p>
+<ul>
+<li>When <code>rand'</code> is good: identical. Both choices produce uniform output; the 1-bit y-parity difference is invisible after SHA256.</li>
+<li>When <code>rand'</code> fails: still effectively identical. What matters is that <code>thresh_pk</code> uniquely identifies <em>this group</em>. Both XonlyPk (32B) and PlainPk (33B) do that — the y-parity is a deterministic function of x for a fixed curve point, so it adds zero real entropy about "which group."</li>
+<li>Collision resistance: SHA256 gives you ~128-bit collision resistance regardless. 1 extra bit of input is meaningless.</li>
+<li>Consistency: BIP340 and BIP327 both use the x-only form of the (aggregate) pubkey in their nonce hashes. A FROST signer ultimately produces a BIP340 signature under the x-only threshold pubkey, so XonlyPk is the canonical identity of the group from the verifier's perspective. Using the same representation in <code>nonce_gen</code> means there's one canonical "group ID" throughout the spec.</li>
+<li>PlainPk being slightly beneficial: technically true (1 extra bit, no canonicalization step), but the bit is cryptographically worthless and the canonicalization is trivial.</li>
+</ul>
+<p>So the reviewer's argument is essentially: <em>since security doesn't depend on this choice, pick the one that matches the rest of the Bitcoin/BIP340/BIP327 ecosystem</em>. That's a reasonable "principle of least surprise" call. It "doesn't matter too much" — and that's precisely <em>why</em> consistency wins the tiebreak.</p>
+<h2 id="the-meta-principle">The meta-principle</h2>
+<p>A useful way to think about these design choices: <strong>security-critical inputs</strong> (here: <code>rand'</code>, and <code>secshare</code> as the hedge) must be chosen for cryptographic reasons; <strong>defense-in-depth inputs</strong> (here: <code>pubshare</code>, <code>thresh_pk</code>, <code>m</code>, <code>extra_in</code>) should be chosen for <em>engineering</em> reasons — canonicality, consistency with neighboring specs, ease of auditing, absence of ambiguity. Debating the cryptographic merit of XonlyPk vs PlainPk is a category error: neither is "more secure," so you decide it on engineering grounds, and ecosystem consistency is the strongest engineering ground available.</p>
+    <footer class="note-sources"><span>Sources:</span><ul><li><a href="https://github.com/bitcoin/bips/pull/2070#discussion_r2825786406" rel="external noopener">https://github.com/bitcoin/bips/pull/2070#discussion_r2825786406</a></li><li><a href="https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki#default-signing" rel="external noopener">https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki#default-signing</a></li><li><a href="https://github.com/bitcoin/bips/blob/master/bip-0327.mediawiki#nonce-generation" rel="external noopener">https://github.com/bitcoin/bips/blob/master/bip-0327.mediawiki#nonce-generation</a></li><li><a href="https://eprint.iacr.org/2019/956" rel="external noopener">https://eprint.iacr.org/2019/956</a></li><li><a href="https://datatracker.ietf.org/doc/html/rfc6979" rel="external noopener">https://datatracker.ietf.org/doc/html/rfc6979</a></li></ul></footer>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

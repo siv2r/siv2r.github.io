@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ecmult-multi-algorithm-selection</title>
+  <meta name="description" content="ecmult-multi-algorithm-selection">
+  <meta property="og:title" content="ecmult-multi-algorithm-selection">
+  <meta property="og:description" content="ecmult-multi-algorithm-selection">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://siv2r.in/notes/ecmult-multi-algorithm-selection/">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://siv2r.in/notes/ecmult-multi-algorithm-selection/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400&family=Libre+Franklin:wght@400;500;600&family=Overpass+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/notes.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.47/dist/katex.min.css" integrity="sha384-nH0MfJ44wi1dd7w6jinlyBgljjS8EJAh2JBoRad8a3VDw2K69vfaaqm4WnR+gXtA" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <nav class="topbar">
+        <a href="/">home</a>
+        <a href="/work/">work</a>
+        <a href="https://siv2r.substack.com" rel="external noopener">writing<span class="ext">↗</span></a>
+        <a href="/notes/" aria-current="page">notes</a>
+        <a href="/sivaram-resume.pdf" download>resume<span class="ext">↓</span></a>
+        <a href="/contact/">contact</a>
+      </nav>
+    </header>
+    <main>
+      <article class="note">
+        <h1>ecmult-multi-algorithm-selection</h1>
+        <p class="note-meta">Sat Mar 28 2026</p>
+        <p><code>secp256k1_ecmult_multi</code> computes multi-scalar multiplication: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><msub><mi>s</mi><mi>G</mi></msub><mo>⋅</mo><mi>G</mi><mo>+</mo><msub><mo>∑</mo><mi>i</mi></msub><msub><mi>s</mi><mi>i</mi></msub><mo>⋅</mo><msub><mi>P</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">R = s_G \cdot G + \sum_{i} s_i \cdot P_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.0077em;">R</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.5945em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">G</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">G</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0497em;vertical-align:-0.2997em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.162em;"><span style="top:-2.4003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2997em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>. It automatically selects the best algorithm based on the memory budget (<code>mem_limit</code>) and the number of points (<code>n_points</code>). This note documents how that selection works.</p>
+<p>Based on fjahr's ecmult refactor (<a href="https://github.com/bitcoin-core/secp256k1/pull/1789">PR #1789</a>).</p>
+<h2 id="the-abcd-cost-model">The ABCD Cost Model</h2>
+<p>Each algorithm is characterized by four constants:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Parameter</th><th>Meaning</th></tr></thead><tbody><tr><td><strong>A</strong></td><td>Per-point working memory (bytes)</td></tr><tr><td><strong>B</strong></td><td>Fixed memory overhead (bytes)</td></tr><tr><td><strong>C</strong></td><td>Per-point time cost (abstract units)</td></tr><tr><td><strong>D</strong></td><td>Fixed time overhead (abstract units)</td></tr></tbody></table>
+<p>For a batch of <code>x</code> points:</p>
+<ul>
+<li>Memory usage: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>A</mi><mo>⋅</mo><mi>x</mi><mo>+</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">m(x) = A \cdot x + B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">m</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.0502em;">B</span></span></span></span></li>
+<li>Time cost: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>C</mi><mo>⋅</mo><mi>x</mi><mo>+</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">c(x) = C \cdot x + D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">c</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.0715em;">C</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">D</span></span></span></span></li>
+<li><strong>Optime</strong> (per-point cost): <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>optime</mtext><mo>=</mo><mi>C</mi><mo>+</mo><mi>D</mi><mi mathvariant="normal">/</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">\text{optime} = C + D / x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8623em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord">optime</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.0715em;">C</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">D</span><span class="mord">/</span><span class="mord mathnormal">x</span></span></span></span></li>
+</ul>
+<p>As <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>→</mo><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">x \to \infty</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord">∞</span></span></span></span>, optime converges to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.0715em;">C</span></span></span></span>. This is the algorithm's asymptotic floor.</p>
+<h2 id="the-14-algorithms">The 14 Algorithms</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Index</th><th>Algorithm</th><th>C</th><th>D</th><th>Notes</th></tr></thead><tbody><tr><td>0</td><td>TRIVIAL</td><td>1000</td><td>0</td><td>No memory needed, very slow</td></tr><tr><td>1</td><td>STRAUSS</td><td>109</td><td>120</td><td>Efficient for small batches</td></tr><tr><td>2</td><td>Pippenger w1</td><td>197</td><td>403</td><td></td></tr><tr><td>3</td><td>Pippenger w2</td><td>148</td><td>590</td><td></td></tr><tr><td>4</td><td>Pippenger w3</td><td>117</td><td>877</td><td></td></tr><tr><td>5</td><td>Pippenger w4</td><td>100</td><td>1,340</td><td></td></tr><tr><td>6</td><td>Pippenger w5</td><td>86</td><td>2,187</td><td></td></tr><tr><td>7</td><td>Pippenger w6</td><td>75</td><td>3,703</td><td></td></tr><tr><td>8</td><td>Pippenger w7</td><td>66</td><td>6,324</td><td></td></tr><tr><td>9</td><td>Pippenger w8</td><td>61</td><td>10,681</td><td></td></tr><tr><td>10</td><td>Pippenger w9</td><td>56</td><td>19,223</td><td></td></tr><tr><td>11</td><td>Pippenger w10</td><td>53</td><td>36,521</td><td></td></tr><tr><td>12</td><td>Pippenger w11</td><td>49</td><td>71,369</td><td></td></tr><tr><td>13</td><td>Pippenger w12</td><td>46</td><td>130,576</td><td>Highest window, best asymptotic</td></tr></tbody></table>
+<p><strong>Key pattern:</strong> Higher Pippenger windows have lower C (better asymptotic) but exponentially higher D (more fixed overhead to amortize) and B (more bucket memory).</p>
+<h2 id="memory-size-formulas">Memory Size Formulas</h2>
+<p>Struct sizes on 64-bit non-VERIFY builds:</p>
+<ul>
+<li><code>secp256k1_fe</code> = 40 bytes (5 x <code>uint64_t</code>)</li>
+<li><code>secp256k1_ge</code> = 88 bytes (2 fe + <code>int infinity</code> + padding)</li>
+<li><code>secp256k1_gej</code> = 128 bytes (3 fe + <code>int infinity</code> + padding)</li>
+<li><code>secp256k1_scalar</code> = 32 bytes (4 x <code>uint64_t</code>)</li>
+</ul>
+<h3 id="strauss">Strauss</h3>
+<ul>
+<li><strong>A</strong> = <code>(sizeof(ge) + sizeof(fe)) * TABLE_SIZE(WINDOW_A) + sizeof(strauss_point_state) + sizeof(gej) + sizeof(scalar)</code> = 1452 bytes</li>
+<li><strong>B</strong> = 0 (no fixed overhead)</li>
+</ul>
+<h3 id="pippenger">Pippenger</h3>
+<ul>
+<li><strong>Entry size(w)</strong> = <code>sizeof(ge) + sizeof(scalar) + sizeof(pippenger_point_state) + WNAF_SIZE(w+1) * sizeof(int)</code></li>
+<li><strong>A</strong> (point size) = <code>2 * entry_size(w)</code> (factor of 2 from GLV endomorphism)</li>
+<li><strong>B</strong> (fixed size) = <code>sizeof(gej) * 2^w + 2 * entry_size(w)</code>
+<ul>
+<li>The <code>sizeof(gej) * 2^w</code> term is the bucket array -- this dominates at high windows</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Window</th><th>A (bytes)</th><th>B (bytes)</th><th>Buckets</th></tr></thead><tbody><tr><td>w1</td><td>784</td><td>1,040</td><td>2</td></tr><tr><td>w5</td><td>448</td><td>4,544</td><td>32</td></tr><tr><td>w7</td><td>400</td><td>16,784</td><td>128</td></tr><tr><td>w9</td><td>376</td><td>65,912</td><td>512</td></tr><tr><td>w11</td><td>360</td><td>262,504</td><td>2,048</td></tr><tr><td>w12</td><td>352</td><td>524,640</td><td>4,096</td></tr></tbody></table>
+<h2 id="the-two-selection-functions">The Two Selection Functions</h2>
+<h3 id="ecmult_multi_batch_sizemem_limit----capacity-planning"><code>ecmult_multi_batch_size(mem_limit)</code> -- Capacity Planning</h3>
+<p>Used at <strong>batch creation time</strong> to determine how many points can fit.</p>
+<pre><code>for each algorithm (skipping TRIVIAL):
+    batch_size = (mem_limit - B) / A
+    optime = C + D / batch_size
+    pick the algorithm with minimum optime
+return that algorithm's batch_size   (not the algorithm itself)
+</code></pre>
+<h3 id="ecmult_multi_selectmem_limit-n_points----runtime-selection"><code>ecmult_multi_select(mem_limit, n_points)</code> -- Runtime Selection</h3>
+<p>Used at <strong>verify time</strong> to pick the best algorithm for the actual number of points.</p>
+<pre><code>for each algorithm (including TRIVIAL):
+    if A * n_points + B > mem_limit: skip
+    optime = C + D / n_points
+    pick the algorithm with minimum optime
+return that algorithm
+</code></pre>
+<p><strong>Key difference:</strong> <code>batch_size</code> optimizes for the best possible batch size within memory. <code>select</code> optimizes for the actual <code>n_points</code> being processed, which may be much smaller than capacity.</p>
+<h3 id="ecmult_multi----the-wrapper"><code>ecmult_multi(...)</code> -- The Wrapper</h3>
+<p>Simply calls <code>select(mem_limit, n_points)</code> then <code>internal(algo, points, scalars, ...)</code>. <strong>Does not split points into sub-batches internally.</strong> The caller is responsible for batching.</p>
+<h2 id="capacity-at-different-memory-budgets">Capacity at Different Memory Budgets</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>mem_limit</th><th>capacity</th><th>algorithm</th><th>optime</th><th>C (floor)</th></tr></thead><tbody><tr><td>256 KB</td><td>641</td><td>Pippenger w7</td><td>75</td><td>66</td></tr><tr><td>512 KB</td><td>1,252</td><td>Pippenger w8</td><td>69</td><td>61</td></tr><tr><td>1 MB</td><td>2,613</td><td>Pippenger w9</td><td>63</td><td>56</td></tr><tr><td>4 MB</td><td>11,477</td><td>Pippenger w11</td><td>55</td><td>49</td></tr><tr><td>16 MB</td><td>48,468</td><td>Pippenger w12</td><td>48</td><td>46</td></tr><tr><td>64 MB</td><td>~198K</td><td>Pippenger w12</td><td>46</td><td>46</td></tr></tbody></table>
+<p>At 64 MB, optime hits the C=46 floor. More memory beyond this gives no further improvement.</p>
+<h2 id="algorithm-selection-trace-16-mb">Algorithm Selection Trace (16 MB)</h2>
+<p>What actually gets selected as n_points varies:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>n_points</th><th>Algorithm</th><th>Optime</th></tr></thead><tbody><tr><td>2</td><td>Strauss</td><td>169</td></tr><tr><td>10</td><td>Strauss</td><td>121</td></tr><tr><td>20</td><td>Strauss</td><td>115</td></tr><tr><td>80</td><td>Strauss</td><td>110</td></tr><tr><td>90</td><td><strong>Pip w5</strong></td><td>110</td></tr><tr><td>100</td><td>Pip w5</td><td>107</td></tr><tr><td>150</td><td>Pip w6</td><td>99</td></tr><tr><td>300</td><td>Pip w6</td><td>87</td></tr><tr><td>500</td><td>Pip w7</td><td>78</td></tr><tr><td>1,000</td><td>Pip w8</td><td>71</td></tr><tr><td>2,000</td><td>Pip w9</td><td>65</td></tr><tr><td>5,000</td><td>Pip w9</td><td>59</td></tr><tr><td>10,000</td><td>Pip w10</td><td>56</td></tr><tr><td>20,000</td><td>Pip w11</td><td>52</td></tr><tr><td>48,468</td><td>Pip w12</td><td>48</td></tr></tbody></table>
+<p>The algorithm "cascades" through progressively higher Pippenger windows as n_points grows.</p>
+<h2 id="the-strauss-pippenger-transition">The Strauss-Pippenger Transition</h2>
+<p>Pippenger w_k beats Strauss when:</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>k</mi></msub><mo>+</mo><msub><mi>D</mi><mi>k</mi></msub><mi mathvariant="normal">/</mi><mi>n</mi><mo>&#x3C;</mo><msub><mi>C</mi><mtext>strauss</mtext></msub><mo>+</mo><msub><mi>D</mi><mtext>strauss</mtext></msub><mi mathvariant="normal">/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">C_k + D_k / n &#x3C; C_\text{strauss} + D_\text{strauss} / n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0715em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0315em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0278em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0315em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">/</span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&#x3C;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0715em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord text mtight"><span class="mord mtight">strauss</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0278em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord text mtight"><span class="mord mtight">strauss</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">/</span><span class="mord mathnormal">n</span></span></span></span></p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>></mo><mfrac><mrow><msub><mi>D</mi><mi>k</mi></msub><mo>−</mo><msub><mi>D</mi><mtext>strauss</mtext></msub></mrow><mrow><msub><mi>C</mi><mtext>strauss</mtext></msub><mo>−</mo><msub><mi>C</mi><mi>k</mi></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">n > \frac{D_k - D_\text{strauss}}{C_\text{strauss} - C_k}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">></span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.3451em;vertical-align:-0.4509em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8942em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0715em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2963em;"><span style="top:-2.357em;margin-left:-0.0715em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord text mtight"><span class="mord mtight">strauss</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mbin mtight">−</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0715em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3488em;margin-left:-0.0715em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0315em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1512em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.4159em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0278em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3488em;margin-left:-0.0278em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0315em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1512em;"><span></span></span></span></span></span></span><span class="mbin mtight">−</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0278em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2963em;"><span style="top:-2.357em;margin-left:-0.0278em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord text mtight"><span class="mord mtight">strauss</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4509em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
+<p>With <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mtext>strauss</mtext></msub><mo>=</mo><mn>120</mn></mrow><annotation encoding="application/x-tex">D_\text{strauss} = 120</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0278em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord text mtight"><span class="mord mtight">strauss</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">120</span></span></span></span>:</p>
+<ul>
+<li><strong>Pip w5 beats Strauss at n > 89</strong> (first Pippenger window to win)</li>
+<li>Pip w4 at n > 135, but it's dominated by w5 at that point</li>
+</ul>
+<p>This creates a <strong>gap in the algorithm space</strong>: Strauss reaches its C=109 floor by n<del>20, but no Pippenger window can beat it until n</del>90. In this range, per-point cost barely improves.</p>
+<h2 id="the-three-regions-of-a-batch-speedup-curve">The Three Regions of a Batch Speedup Curve</h2>
+<h3 id="region-1-strauss-ramp-n--2-20">Region 1: Strauss Ramp (n = 2-20)</h3>
+<p>Optime drops from 169 to 115. D=120 is still being amortized. Speedup climbing.</p>
+<h3 id="region-2-strauss-plateau-n--20-89">Region 2: Strauss Plateau (n = 20-89)</h3>
+<p>Optime only drops from 115 to 110. D/n is already negligible -- Strauss is near its C=109 floor. No Pippenger window is competitive yet. <strong>This produces the visible "early shelf" in speedup graphs.</strong></p>
+<p>Cannot be improved without an algorithm that fills the gap between Strauss (C=109, D=120) and Pippenger w5 (C=86, D=2187) -- something with C<del>95-100 and D</del>400-800. No such algorithm currently exists.</p>
+<h3 id="region-3-pippenger-cascade-n--90">Region 3: Pippenger Cascade (n = 90+)</h3>
+<p>Progressive window upgrades: w5 -> w6 -> w7 -> ... -> w12. Optime drops from 110 to 48 (at 16 MB capacity). Speedup climbing steeply.</p>
+<p>Eventually hits the <strong>capacity ceiling</strong> from transparent verify (see below), producing a final flatline.</p>
+<h2 id="transparent-verify-and-the-capacity-ceiling">Transparent Verify and the Capacity Ceiling</h2>
+<p>In the batch verification module, <code>batch_add_*</code> functions check remaining capacity before adding points:</p>
+<pre><code class="language-c">/* schnorrsig: 2 points per signature */
+if (batch->capacity - batch->len &#x3C; BATCH_SCHNORRSIG_SCRATCH_OBJS) {
+    tverify = secp256k1_batch_verify(ctx, batch);  /* verify + reset */
+    if (tverify == 0) return;
+}
+
+/* tweak check: 1 point per check */
+if (batch->capacity - batch->len &#x3C; BATCH_TWEAK_CHECK_SCRATCH_OBJS) {
+    tverify = secp256k1_batch_verify(ctx, batch);
+    if (tverify == 0) return;
+}
+</code></pre>
+<p>When the batch is full, it automatically verifies (calling <code>ecmult_multi</code> with <code>capacity</code> points) and resets <code>len = 0</code>. This means each <code>ecmult_multi</code> call processes at most <code>capacity</code> points, and per-point cost is fixed at the optime for that capacity. This produces the <strong>final flatline</strong> in speedup graphs.</p>
+<p><strong>Flatline points:</strong></p>
+<ul>
+<li>Schnorrsig: flatlines at <code>capacity / 2</code> signatures (2 points per sig)</li>
+<li>Tweak check: flatlines at <code>capacity</code> checks (1 point per check)</li>
+</ul>
+<h2 id="the-three-ceilings-on-batch-speedup">The Three Ceilings on Batch Speedup</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Ceiling</th><th>Cause</th><th>Can be raised?</th></tr></thead><tbody><tr><td><strong>Capacity ceiling</strong></td><td><code>mem_limit</code> determines max points per <code>ecmult_multi</code> call</td><td>Yes -- increase <code>mem_limit</code></td></tr><tr><td><strong>Algorithm ceiling</strong></td><td>Pippenger w12 is the highest window; C=46 is the floor</td><td>Would need w13+ (exponential memory cost)</td></tr><tr><td><strong>Overhead ceiling</strong></td><td>Non-ecmult per-item costs (hashing, point decompression, randomizer generation) don't benefit from batching</td><td>No -- fundamental to the verification math</td></tr></tbody></table>
+<h2 id="observed-speedups-batch-verification-poc">Observed Speedups (Batch Verification PoC)</h2>
+<p>Using the ecmult refactor integration on the <code>new-ecmult-batch</code> branch:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>mem_limit</th><th>Schnorrsig speedup</th><th>Tweak check speedup</th></tr></thead><tbody><tr><td>256 KB</td><td>~1.55x (flatlines after ~320 sigs)</td><td>~1.55x (flatlines after ~640 checks)</td></tr><tr><td>4 MB</td><td>~1.78x (flatlines after ~5,700 sigs)</td><td>~1.68x (flatlines after ~11,400 checks)</td></tr><tr><td>16 MB</td><td>~1.95x (flatlines after ~24,000 sigs)</td><td>~1.73x (flatlines after ~48,000 checks)</td></tr></tbody></table>
+<p>For comparison, the original batch PR (Strauss only) achieves ~1.20x for schnorrsig and ~1.50x for tweak checks.</p>
+<h2 id="side-note-exploring-d274-for-strauss">Side Note: Exploring D=274 for Strauss</h2>
+<p>The current code on the <code>new-ecmult-batch</code> branch has Strauss D=274 (higher than D=120). This makes the early flatline (Region 2) less flat because Strauss takes longer to converge to its C=109 floor:</p>
+<ul>
+<li>D=120: optime at n=20 is 115, at n=80 is 110 (delta = 5)</li>
+<li>D=274: optime at n=20 is 122, at n=80 is 112 (delta = 10)</li>
+</ul>
+<p>The Pip w5 transition also shifts earlier (n > 83 instead of n > 89). Whether D=274 leads to measurably better real-world speedup in the transition region is still being explored.</p>
+    <footer class="note-sources"><span>Sources:</span><ul><li><a href="https://github.com/bitcoin-core/secp256k1/pull/1789" rel="external noopener">https://github.com/bitcoin-core/secp256k1/pull/1789</a></li><li><a href="https://github.com/bitcoin-core/secp256k1/pull/1134" rel="external noopener">https://github.com/bitcoin-core/secp256k1/pull/1134</a></li></ul></footer>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

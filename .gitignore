@@ -7,3 +7,4 @@ node_modules/
 .claude/
 .superpowers/
 siv2r-substack-design/
+.logbook/

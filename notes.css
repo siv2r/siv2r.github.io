@@ -1,0 +1,56 @@
+/* notes.css: prose layer for /notes/, scoped to article.note.
+   Tokens come from styles.css :root. */
+
+.note { max-width: 85ch; color: var(--text-body); }
+.note h1 { font-size: 27px; font-weight: 500; font-variation-settings: "opsz" 27, "wght" 500; margin: 0 0 0.1em; }
+.note .note-meta { font-family: var(--font-mono); font-size: 12px; color: var(--text-tertiary); margin: 0 0 2em; }
+
+.note h2 { font-family: var(--font-serif); font-size: 21px; font-variation-settings: "opsz" 21, "wght" 510; color: var(--text-primary); margin: 2em 0 0.4em; letter-spacing: -0.005em; }
+.note h3 { font-family: var(--font-serif); font-size: 17px; font-variation-settings: "opsz" 17, "wght" 500; color: var(--text-primary); margin: 1.7em 0 0.3em; }
+.note h4 { font-family: var(--font-serif); font-size: 16px; font-style: italic; color: var(--text-secondary); margin: 1.4em 0 0.2em; }
+
+.note p { margin: 0 0 1.1em; }
+.note ul, .note ol { padding-left: 1.5em; margin: 0 0 1.1em; }
+.note li + li { margin-top: 0.3em; }
+.note a:hover { color: var(--accent); }
+.note strong { font-variation-settings: "wght" 560; }
+
+.note blockquote { border-left: 2px solid var(--separator); margin: 1.5em 0; padding: 0.1em 1em; color: var(--text-secondary); }
+
+.note code { font-family: var(--font-mono); font-size: 0.85em; background: var(--section-hairline); padding: 0.1em 0.35em; border-radius: 3px; }
+.note pre { font-family: var(--font-mono); font-size: 13px; line-height: 1.5; background: var(--section-hairline); padding: 1em 1.2em; border-radius: 4px; overflow-x: auto; margin: 1.3em 0; }
+.note pre code { background: none; padding: 0; font-size: inherit; }
+
+.note table { border-collapse: collapse; width: 100%; margin: 1.5em 0; font-size: 14px; }
+.note th, .note td { border: 1px solid var(--hairline); padding: 0.45em 0.7em; text-align: left; }
+.note th { background: var(--section-hairline); font-family: var(--font-sans); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); }
+
+.note hr { border: none; border-top: 1px solid var(--hairline); margin: 2.5em 0; }
+.note img { max-width: 100%; height: auto; display: block; margin: 1.5em 0; }
+
+.note .katex { font-size: 1.05em; }
+.note .katex-display { overflow-x: auto; overflow-y: hidden; padding: 0.3em 0; }
+
+/* callouts */
+.note .callout { border: 1px solid var(--hairline); border-left: 3px solid var(--accent); background: var(--section-hairline); border-radius: 4px; padding: 0.8em 1em; margin: 1.4em 0; }
+.note .callout > :first-child { margin-top: 0; }
+.note .callout > :last-child { margin-bottom: 0; }
+.note .callout-warning { border-left-color: #b4862f; }
+
+/* sources footer */
+.note-sources { margin-top: 3em; padding-top: 1.2em; border-top: 1px solid var(--hairline); font-size: 14px; color: var(--text-secondary); }
+.note-sources span { font-family: var(--font-sans); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+.note-sources ul { list-style: none; padding: 0; margin: 0.4em 0 0; }
+.note-sources li { margin: 0.2em 0; word-break: break-all; }
+
+/* index */
+.note-index { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.6em 3em; align-items: start; margin-top: 2.2em; }
+.note-group { margin: 0; }
+.note-group h2 { font-family: var(--font-serif); font-size: 20px; font-variation-settings: "wght" 520; margin: 0 0 0.6em; }
+.note-group ul { list-style: none; padding: 0; margin: 0; }
+.note-group li { margin: 0.35em 0; }
+.note-blurb { color: var(--text-tertiary); }
+
+@media (max-width: 600px) {
+  .note-index { grid-template-columns: 1fr; gap: 2em; }
+}
