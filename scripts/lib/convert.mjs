@@ -9,6 +9,7 @@ import rehypeKatex from 'rehype-katex'
 import rehypeStringify from 'rehype-stringify'
 import { VFile } from 'vfile'
 import { remarkWikiLinks } from './wikilinks.mjs'
+import { remarkCollectLinks } from './collect-links.mjs'
 import { rehypeCallouts } from './callouts.mjs'
 
 // Remove a single leading level-1 ATX heading; the slug is the canonical title.
@@ -21,12 +22,14 @@ export async function convertNote(markdown, opts) {
   file.data.assets = []
   file.data.unresolved = []
   file.data.missingEmbeds = []
+  file.data.outgoingLinks = []
 
   const processor = unified()
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkMath)
     .use(remarkWikiLinks, opts)
+    .use(remarkCollectLinks)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
     .use(rehypeSlug)

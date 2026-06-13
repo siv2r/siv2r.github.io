@@ -43,6 +43,14 @@
 .note-sources ul { list-style: none; padding: 0; margin: 0.4em 0 0; }
 .note-sources li { margin: 0.2em 0; word-break: break-all; }
 
+/* backlinks footer */
+.note-backlinks { margin-top: 2.5rem; border-top: 1px solid var(--hairline); padding-top: 1rem; }
+.note-backlinks h2 { font-family: var(--font-mono); font-size: 0.8rem; text-transform: lowercase; letter-spacing: 0.04em; color: var(--text-tertiary); margin: 0 0 0.5rem; }
+.note-backlinks ul { list-style: none; padding: 0; margin: 0; }
+.note-backlinks li { margin: 0 0 0.6rem; }
+.note-backlinks a { font-family: var(--font-mono); font-size: 0.9rem; }
+.backlink-excerpt { display: block; font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.15rem; }
+
 /* index */
 .note-index { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.6em 3em; align-items: start; margin-top: 2.2em; }
 .note-group { margin: 0; }
@@ -54,3 +62,16 @@
 @media (max-width: 600px) {
   .note-index { grid-template-columns: 1fr; gap: 2em; }
 }
+
+/* graph */
+.notes-graph-wrap { margin: 0 0 2rem; }
+#notes-graph { display: block; width: 100%; height: min(60vh, 460px); }
+.skip-graph { position: absolute; left: -9999px; }
+.skip-graph:focus { position: static; left: 0; display: inline-block; margin-bottom: 0.5rem;
+  font-family: var(--font-mono); font-size: 0.85rem; }
+
+/* grid as legend: category left-border (colors mirror notes-graph.js COLORS) */
+.note-group[data-category="bitcoin-and-frost"] { border-left: 3px solid #b07a33; padding-left: 0.9rem; }
+.note-group[data-category="mathematics"]      { border-left: 3px solid #4a6b52; padding-left: 0.9rem; }
+.note-group[data-category="computer-science"] { border-left: 3px solid #5a7184; padding-left: 0.9rem; }
+.note-group[data-category="cryptography"]     { border-left: 3px solid #8c5b6b; padding-left: 0.9rem; }

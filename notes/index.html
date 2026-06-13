@@ -32,8 +32,13 @@
     </header>
     <main>
       <p class="intro">My thinking box: mental models, aha moments, and random explorations as I learn a topic deeply.</p>
-      <div class="note-index">
-      <section class="note-group">
+      <a class="skip-graph" href="#note-list">Skip graph, jump to the note list</a>
+      <div class="notes-graph-wrap">
+        <div id="notes-graph" role="img" aria-label="Interactive graph of the published notes and how they link to each other. The full note list follows below."></div>
+      </div>
+      <script id="graph-data" type="application/json">{"nodes":[{"id":"ec-curve-symmetry-finite-field","label":"ec-curve-symmetry-finite-field","category":"bitcoin-and-frost","ghost":false,"degree":0,"x":453,"y":297},{"id":"ecmult-multi-algorithm-selection","label":"ecmult-multi-algorithm-selection","category":"bitcoin-and-frost","ghost":false,"degree":2,"x":363,"y":341},{"id":"frost-shamir-degree-constraint","label":"frost-shamir-degree-constraint","category":"bitcoin-and-frost","ghost":false,"degree":1,"x":338,"y":267},{"id":"lagrange-offset-property","label":"lagrange-offset-property","category":"bitcoin-and-frost","ghost":false,"degree":3,"x":374,"y":250},{"id":"musig2-linearity-insight","label":"musig2-linearity-insight","category":"bitcoin-and-frost","ghost":false,"degree":3,"x":394,"y":214},{"id":"nonce-fn-defense-in-depth-inputs","label":"nonce-fn-defense-in-depth-inputs","category":"bitcoin-and-frost","ghost":false,"degree":3,"x":382,"y":171},{"id":"strauss-calibration-mental-model","label":"strauss-calibration-mental-model","category":"bitcoin-and-frost","ghost":false,"degree":1,"x":400,"y":348},{"id":"conditional-probability","label":"conditional-probability","category":"mathematics","ghost":false,"degree":2,"x":375,"y":135},{"id":"random-variable","label":"random-variable","category":"mathematics","ghost":false,"degree":3,"x":358,"y":176},{"id":"asymptotic-analysis","label":"asymptotic-analysis","category":"computer-science","ghost":false,"degree":3,"x":303,"y":163},{"id":"fermats-little-theorem-proof","label":"fermats-little-theorem-proof","category":"cryptography","ghost":false,"degree":1,"x":501,"y":232},{"id":"modular-inverse-coprime-property","label":"modular-inverse-coprime-property","category":"cryptography","ghost":false,"degree":1,"x":500,"y":270},{"id":"otp-security-proof","label":"otp-security-proof","category":"cryptography","ghost":false,"degree":4,"x":341,"y":146},{"id":"why-negligible-funcs","label":"why-negligible-funcs","category":"cryptography","ghost":false,"degree":2,"x":323,"y":196},{"id":"batch-verification","label":"batch-verification","category":null,"ghost":true,"degree":1,"x":325,"y":336},{"id":"frost-signing-bip","label":"frost-signing-bip","category":null,"ghost":true,"degree":2,"x":412,"y":248},{"id":"frost-tweak-randomness","label":"frost-tweak-randomness","category":null,"ghost":true,"degree":1,"x":422,"y":160},{"id":"hardness-assumption","label":"hardness-assumption","category":null,"ghost":true,"degree":1,"x":275,"y":193}],"links":[{"source":"ecmult-multi-algorithm-selection","target":"batch-verification"},{"source":"frost-shamir-degree-constraint","target":"lagrange-offset-property"},{"source":"lagrange-offset-property","target":"frost-signing-bip"},{"source":"musig2-linearity-insight","target":"lagrange-offset-property"},{"source":"musig2-linearity-insight","target":"frost-signing-bip"},{"source":"nonce-fn-defense-in-depth-inputs","target":"musig2-linearity-insight"},{"source":"nonce-fn-defense-in-depth-inputs","target":"frost-tweak-randomness"},{"source":"nonce-fn-defense-in-depth-inputs","target":"otp-security-proof"},{"source":"strauss-calibration-mental-model","target":"ecmult-multi-algorithm-selection"},{"source":"conditional-probability","target":"otp-security-proof"},{"source":"conditional-probability","target":"random-variable"},{"source":"random-variable","target":"otp-security-proof"},{"source":"random-variable","target":"why-negligible-funcs"},{"source":"asymptotic-analysis","target":"why-negligible-funcs"},{"source":"asymptotic-analysis","target":"hardness-assumption"},{"source":"asymptotic-analysis","target":"otp-security-proof"},{"source":"fermats-little-theorem-proof","target":"modular-inverse-coprime-property"}]}</script>
+      <div class="note-index" id="note-list">
+      <section class="note-group" data-category="bitcoin-and-frost">
         <h2>Bitcoin &amp; FROST</h2>
         <ul>
         <li><a href="/notes/ec-curve-symmetry-finite-field/">ec-curve-symmetry-finite-field</a></li>
@@ -45,20 +50,20 @@
         <li><a href="/notes/strauss-calibration-mental-model/">strauss-calibration-mental-model</a></li>
         </ul>
       </section>
-      <section class="note-group">
+      <section class="note-group" data-category="mathematics">
         <h2>Mathematics</h2>
         <ul>
         <li><a href="/notes/conditional-probability/">conditional-probability</a></li>
         <li><a href="/notes/random-variable/">random-variable</a></li>
         </ul>
       </section>
-      <section class="note-group">
+      <section class="note-group" data-category="computer-science">
         <h2>Computer Science</h2>
         <ul>
         <li><a href="/notes/asymptotic-analysis/">asymptotic-analysis</a></li>
         </ul>
       </section>
-      <section class="note-group">
+      <section class="note-group" data-category="cryptography">
         <h2>Cryptography</h2>
         <ul>
         <li><a href="/notes/fermats-little-theorem-proof/">fermats-little-theorem-proof</a></li>
@@ -70,5 +75,7 @@
       </div>
     </main>
   </div>
+  <script src="/assets/js/force-graph.min.js" defer></script>
+  <script src="/assets/js/notes-graph.js" defer></script>
 </body>
 </html>

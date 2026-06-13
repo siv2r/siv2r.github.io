@@ -7,6 +7,8 @@ import { parseManifest } from './lib/manifest.mjs'
 import { filterSources } from './lib/sources.mjs'
 import { convertNote } from './lib/convert.mjs'
 import { renderNotePage, renderIndexPage } from './lib/template.mjs'
+import { buildBacklinks, buildGraph } from './lib/graph.mjs'
+import { extractRelated } from './lib/collect-links.mjs'
 
 const REPO = dirname(dirname(fileURLToPath(import.meta.url)))
 const VAULT = process.env.VAULT_PATH || join(homedir(), 'Notes')
@@ -62,6 +64,8 @@ function main() {
 
   // Convert and write each note (async, awaited sequentially for stable output).
   const run = async () => {
+    // Pass 1: convert all notes, collect per-note data.
+    const noteData = new Map()
     for (const slug of slugs) {
       const raw = readFileSync(join(KNOWLEDGE, `${slug}.md`), 'utf8')
       const { data: fm, content } = matter(raw)
@@ -74,13 +78,28 @@ function main() {
       data.assets.forEach(a => allAssets.add(a))
 
       const created = fm.created ? new Date(fm.created).toDateString() : null
-      const page = renderNotePage({ slug, bodyHtml: html, created, blurb: blurbFor(slug, sections), sources: kept })
+      const outgoing = [...(data.outgoingLinks || []), ...extractRelated(fm)]
+      noteData.set(slug, { html, created, sources: kept, outgoing })
+    }
+
+    // Pass 2: invert outgoing links into a backlinks map.
+    const backlinks = buildBacklinks(noteData)
+    const graphJson = await buildGraph(noteData, sections, publishSet)
+
+    // Pass 3: render and write every page.
+    for (const slug of slugs) {
+      const nd = noteData.get(slug)
+      const page = renderNotePage({
+        slug, bodyHtml: nd.html, created: nd.created,
+        blurb: blurbFor(slug, sections), sources: nd.sources,
+        backlinks: backlinks.get(slug) || [],
+      })
       mkdirSync(join(STAGING, slug), { recursive: true })
       writeFileSync(join(STAGING, slug, 'index.html'), page)
       report.notes++
     }
 
-    writeFileSync(join(STAGING, 'index.html'), renderIndexPage(sections))
+    writeFileSync(join(STAGING, 'index.html'), renderIndexPage(sections, graphJson))
 
     for (const abs of allAssets) {
       cpSync(abs, join(STAGING, 'assets', basename(abs)))
