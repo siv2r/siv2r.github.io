@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>swiftsync-undo-data-self-contained-blocks</title>
+  <meta name="description" content="swiftsync-undo-data-self-contained-blocks">
+  <meta property="og:title" content="swiftsync-undo-data-self-contained-blocks">
+  <meta property="og:description" content="swiftsync-undo-data-self-contained-blocks">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://siv2r.in/notes/swiftsync-undo-data-self-contained-blocks/">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://siv2r.in/notes/swiftsync-undo-data-self-contained-blocks/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400&family=Libre+Franklin:wght@400;500;600&family=Overpass+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/notes.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.47/dist/katex.min.css" integrity="sha384-nH0MfJ44wi1dd7w6jinlyBgljjS8EJAh2JBoRad8a3VDw2K69vfaaqm4WnR+gXtA" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <nav class="topbar">
+        <a href="/">home</a>
+        <a href="/work/">work</a>
+        <a href="https://siv2r.substack.com" rel="external noopener">writing<span class="ext">↗</span></a>
+        <a href="/notes/" aria-current="page">notes</a>
+        <a href="/sivaram-resume.pdf" download>resume<span class="ext">↓</span></a>
+        <a href="/contact/">contact</a>
+      </nav>
+    </header>
+    <main>
+      <article class="note">
+        <h1>swiftsync-undo-data-self-contained-blocks</h1>
+        <p class="note-meta">Wed Jun 24 2026</p>
+        <p>SwiftSync hashes every coin twice: once when it is created as an output, once when it is spent as an input. For the two to cancel in the aggregate sum, they have to be byte-for-byte identical. See <a href="/notes/swiftsync-protocol/">swiftsync-protocol</a> for the full picture.</p>
+<p>At creation this is easy. You are processing the block that creates the coin, so its full data (script, amount, creation height, coinbase flag) is sitting right there in the block.</p>
+<p>At spend time it is not. Block M spends the coin, but a transaction input points at it by outpoint only: a 32-byte txid plus a 4-byte index, 36 bytes total. The script, amount, and height are nowhere in the input. So to recompute the same hash, the spending side has to get those bytes from somewhere. Where?</p>
+<h2 id="where-i-got-stuck">Where I got stuck</h2>
+<p>My first instinct was the obvious one: follow the outpoint. The input names the creating transaction by txid, so look up that old block, find the output, read its bytes. A normal node effectively does this through its UTXO set.</p>
+<p>Then I saw why that cannot work here. SwiftSync's whole point is processing blocks in any order, in parallel. If spending a coin in block M needs me to read block N where it was born, then block M cannot be processed until block N is downloaded and indexed. That serializes the exact thing we were trying to parallelize. The lookup kills the protocol.</p>
+<p>So I guessed the data must live in the hintsfile instead. That fails too, for a different reason. The hintsfile is one global object answering a single yes/no question per output: does this output survive into the UTXO set? It is a membership marker, one bit per output, not a place to stash the script and amount of hundreds of millions of spent coins.</p>
+<h2 id="the-key-move-ask-what-parallelism-requires-not-where-to-store-the-data">The key move: ask what parallelism requires, not where to store the data</h2>
+<p>The reframe is to stop hunting for a storage location and state the constraint directly. For any-order parallel processing to work, <strong>block M must be self-contained</strong>: the moment you download it, you must already hold everything needed to hash the coins it spends, without touching any other block.</p>
+<p>Read that constraint forward and the answer is forced. The missing bytes cannot come from another block (a lookup, which breaks parallelism) and cannot come from the global hintsfile (membership only). They have to travel <em>with</em> block M. So alongside each block you download a second blob carrying the full data of every coin that block spends. That blob already has a name: <strong>undo data</strong> (Bitcoin Core's <code>rev*.dat</code>).</p>
+<h2 id="why-undo-data-already-exists">Why undo data already exists</h2>
+<p>The good part is that this is not a new structure invented for SwiftSync. Every full node already keeps undo data, for a reason that has nothing to do with it: chain reorganizations.</p>
+<p>If block M gets disconnected during a reorg, the node has to put back the coins block M spent. The block itself does not contain those coins, it only referenced them by outpoint, so to restore them the node must have remembered their script, amount, height, and coinbase flag. That is exactly the per-spent-coin data SwiftSync needs at spend time. SwiftSync just asks a peer to serve it alongside the block.</p>
+<p>One catch to bank: that undo data now arrives from an untrusted peer, and the aggregate equality is the only check standing. A peer could serve valid-looking but wrong coin bytes and make your sum fail. So the same trusted source that gives you the hintsfile also commits to a hash of the undo data. The block stays self-contained, parallelism survives, and you can still tell honest bytes from forged ones.</p>
+<p>The thing to remember is the reframe, not the file name. The question is not "where is the spent coin stored", it is "what has to be true for blocks to process in any order". The answer is self-contained blocks, and undo data is just what makes them self-contained.</p>
+    <footer class="note-sources"><span>Sources:</span><ul><li><a href="https://gist.github.com/RubenSomsen/a61a37d14182ccd78760e477c78133cd" rel="external noopener">https://gist.github.com/RubenSomsen/a61a37d14182ccd78760e477c78133cd</a></li></ul></footer>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

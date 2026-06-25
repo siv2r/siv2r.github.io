@@ -7,7 +7,8 @@ const PRIVATE_PATTERNS = [
   /notion\.so/i,
   /^https?:\/\/localhost\b/i,
   /^https?:\/\/127\.0\.0\.1\b/i,
-  /^file:\/\//i
+  /^file:\/\//i,
+  /^(?!https?:\/\/)/i   // anything that isn't an http(s) URL (e.g. relative vault paths like log/...)
 ]
 
 export function filterSources(urls) {
