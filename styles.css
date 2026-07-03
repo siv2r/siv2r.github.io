@@ -429,6 +429,93 @@ h1 {
 }
 .channels .value .aside a { color: inherit; }
 
+/* References */
+.refs {
+  margin-top: 56px;
+  margin-bottom: 48px;
+  padding-top: 40px;
+  border-top: 1px solid var(--section-hairline);
+  max-width: 85ch; /* match /work prose measure (.os-desc, .travel-prose) */
+}
+.refs-lede {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--text-secondary);
+  font-variation-settings: "opsz" 14;
+  margin: 0 0 32px;
+  text-wrap: pretty;
+}
+.ref {
+  margin: 0 0 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--row-hairline);
+}
+.ref:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: 0; }
+.ref-quote {
+  margin: 0;
+  padding-left: 18px;
+  border-left: 2px solid var(--separator);
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text-body);
+  hanging-punctuation: first last;
+  text-wrap: pretty;
+}
+.ref-by {
+  margin: 12px 0 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 10px;
+}
+.ref-name {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-variation-settings: "opsz" 16, "wght" 500;
+  color: var(--text-primary);
+}
+.ref-affil {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 14px;
+  font-variation-settings: "opsz" 14;
+  color: var(--text-secondary);
+}
+.ref-affil .sep { font-style: normal; color: var(--separator); margin: 0 0.15em; }
+.ref-full { margin: 10px 0 0 20px; }
+.ref-full summary {
+  cursor: pointer;
+  list-style: none;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+  text-decoration: underline;
+  text-decoration-color: rgba(106,99,85,0.3);
+  text-underline-offset: 3px;
+  transition: color var(--dur) var(--ease-out), text-decoration-color var(--dur) var(--ease-out);
+}
+.ref-full summary::-webkit-details-marker { display: none; }
+.ref-full summary:hover { color: var(--accent); text-decoration-color: var(--accent); }
+.ref-full .caret {
+  display: inline-block;
+  transition: transform var(--dur) var(--ease-out);
+}
+.ref-full[open] summary .caret { transform: rotate(90deg); }
+.ref-letter { margin-top: 14px; }
+.ref-letter p {
+  margin: 0 0 14px;
+  color: var(--text-body);
+  font-size: 15px;
+  hanging-punctuation: first last;
+  text-wrap: pretty;
+}
+.ref-letter p:last-child { margin-bottom: 0; }
+
 /* ========== 404 ========== */
 .not-found { text-align: center; padding-top: 80px; }
 .not-found h1 { display: inline-block; margin: 0 0 16px; }
