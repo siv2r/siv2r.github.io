@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 320" width="460" height="320" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+  <rect width="460" height="320" fill="#ffffff"/>
+  <text x="235" y="26" text-anchor="middle" font-size="17" fill="#1e3a8a" font-weight="600">A PMF gives each value its probability</text>
+  <!-- axes with arrowheads -->
+  <line x1="70" y1="280" x2="70" y2="55" stroke="#374151" stroke-width="2"/>
+  <line x1="70" y1="280" x2="420" y2="280" stroke="#374151" stroke-width="2"/>
+  <polygon points="70,48 65,60 75,60" fill="#374151"/>
+  <polygon points="428,280 416,275 416,285" fill="#374151"/>
+  <!-- dashed guides to the highlighted point -->
+  <line x1="70" y1="140" x2="220" y2="140" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="5 5"/>
+  <!-- stems -->
+  <g stroke="#3b82f6" stroke-width="2.5">
+    <line x1="120" y1="280" x2="120" y2="240"/>
+    <line x1="170" y1="280" x2="170" y2="200"/>
+    <line x1="270" y1="280" x2="270" y2="200"/>
+    <line x1="320" y1="280" x2="320" y2="220"/>
+  </g>
+  <line x1="220" y1="280" x2="220" y2="140" stroke="#f59e0b" stroke-width="2.5"/>
+  <g fill="#3b82f6">
+    <circle cx="120" cy="240" r="5"/>
+    <circle cx="170" cy="200" r="5"/>
+    <circle cx="270" cy="200" r="5"/>
+    <circle cx="320" cy="220" r="5"/>
+  </g>
+  <circle cx="220" cy="140" r="6" fill="#f59e0b"/>
+  <!-- labels -->
+  <text x="232" y="132" font-size="13" fill="#b45309" font-weight="600">( x, P&#8339;(x) )</text>
+  <text x="64" y="144" text-anchor="end" font-size="12" fill="#b45309">P&#8339;(x)</text>
+  <text x="220" y="298" text-anchor="middle" font-size="13" fill="#6b7280" font-style="italic">x</text>
+  <text x="250" y="314" text-anchor="middle" font-size="13" fill="#374151">values of the random variable</text>
+  <text x="26" y="168" text-anchor="middle" font-size="13" fill="#374151" transform="rotate(-90 26 168)">probability</text>
+</svg>

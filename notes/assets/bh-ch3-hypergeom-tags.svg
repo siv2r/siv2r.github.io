@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 400" width="540" height="400" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+  <rect width="540" height="400" fill="#ffffff"/>
+  <text x="270" y="28" text-anchor="middle" font-size="18" fill="#1e3a8a" font-weight="600">Every item carries two tags</text>
+  <text x="270" y="50" text-anchor="middle" font-size="13" fill="#6b7280">type (white / black)  &#215;  sampled / not sampled</text>
+
+  <!-- highlight the (white AND sampled) cell = k -->
+  <rect x="150" y="110" width="170" height="90" fill="#fef3c7"/>
+
+  <!-- header cells -->
+  <rect x="150" y="70" width="340" height="40" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="320" y1="70" x2="320" y2="110" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="235" y="95" text-anchor="middle" font-size="14" fill="#374151">in the sample (n)</text>
+  <text x="405" y="95" text-anchor="middle" font-size="14" fill="#374151">not sampled</text>
+
+  <!-- body grid -->
+  <rect x="150" y="110" width="340" height="180" fill="none" stroke="#374151" stroke-width="2"/>
+  <line x1="320" y1="110" x2="320" y2="290" stroke="#374151" stroke-width="2"/>
+  <line x1="150" y1="200" x2="490" y2="200" stroke="#374151" stroke-width="2"/>
+
+  <!-- row labels -->
+  <text x="140" y="160" text-anchor="end" font-size="14" fill="#374151">white (w)</text>
+  <text x="140" y="250" text-anchor="end" font-size="14" fill="#374151">black (b)</text>
+
+  <!-- cell contents -->
+  <text x="235" y="162" text-anchor="middle" font-size="20" fill="#b45309" font-weight="700" font-style="italic">k</text>
+  <text x="405" y="162" text-anchor="middle" font-size="16" fill="#374151" font-style="italic">w &#8722; k</text>
+  <text x="235" y="252" text-anchor="middle" font-size="16" fill="#374151" font-style="italic">n &#8722; k</text>
+  <text x="405" y="252" text-anchor="middle" font-size="16" fill="#374151" font-style="italic">b &#8722; (n&#8722;k)</text>
+
+  <!-- margins -->
+  <text x="235" y="312" text-anchor="middle" font-size="13" fill="#6b7280">n</text>
+  <text x="405" y="312" text-anchor="middle" font-size="13" fill="#6b7280">w + b &#8722; n</text>
+  <text x="508" y="162" text-anchor="start" font-size="13" fill="#6b7280">w</text>
+  <text x="508" y="252" text-anchor="start" font-size="13" fill="#6b7280">b</text>
+
+  <!-- the two readings -->
+  <text x="270" y="348" text-anchor="middle" font-size="13" fill="#1f2937">count white among the sampled  &#8594;  HGeom(w, b, n)</text>
+  <text x="270" y="368" text-anchor="middle" font-size="13" fill="#1f2937">count sampled among the white  &#8594;  HGeom(n, w+b&#8722;n, w)</text>
+  <text x="270" y="390" text-anchor="middle" font-size="12" fill="#9ca3af" font-style="italic">both read the same cell k, so the two distributions match</text>
+</svg>
