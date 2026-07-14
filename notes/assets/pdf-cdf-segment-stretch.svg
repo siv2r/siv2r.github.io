@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" font-family="Helvetica, Arial, sans-serif">
+  <rect width="760" height="420" fill="#ffffff"/>
+  <text x="380" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2430">Track the segment, not the point: the mass f(x)dx is conserved</text>
+
+  <!-- left panel: stretched -->
+  <text x="200" y="62" text-anchor="middle" font-size="14" fill="#1f2430">stretched: density drops</text>
+  <line x1="60" y1="150" x2="340" y2="150" stroke="#555555" stroke-width="1.5"/>
+  <text x="340" y="142" text-anchor="end" font-size="12" fill="#555555">x</text>
+  <rect x="188" y="75" width="24" height="75" fill="#3b78c2" fill-opacity="0.18" stroke="#3b78c2" stroke-width="1.5"/>
+  <rect x="188" y="147" width="24" height="6" fill="#3b78c2"/>
+  <text x="200" y="170" text-anchor="middle" font-size="12" fill="#3b78c2">dx</text>
+  <text x="182" y="115" text-anchor="end" font-size="12" fill="#3b78c2">f(x)</text>
+  <line x1="188" y1="153" x2="164" y2="327" stroke="#888888" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <line x1="212" y1="153" x2="236" y2="327" stroke="#888888" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="216" y="245" font-size="13" font-style="italic" fill="#666666">g</text>
+  <line x1="60" y1="330" x2="340" y2="330" stroke="#555555" stroke-width="1.5"/>
+  <text x="340" y="322" text-anchor="end" font-size="12" fill="#555555">y = g(x)</text>
+  <rect x="164" y="305" width="72" height="25" fill="#c96a2a" fill-opacity="0.18" stroke="#c96a2a" stroke-width="1.5"/>
+  <rect x="164" y="327" width="72" height="6" fill="#c96a2a"/>
+  <text x="200" y="352" text-anchor="middle" font-size="12" fill="#c96a2a">wider segment</text>
+  <text x="200" y="382" text-anchor="middle" font-size="13" fill="#1f2430">same area, lower density</text>
+
+  <!-- right panel: compressed -->
+  <text x="560" y="62" text-anchor="middle" font-size="14" fill="#1f2430">compressed: density rises</text>
+  <line x1="420" y1="150" x2="700" y2="150" stroke="#555555" stroke-width="1.5"/>
+  <text x="700" y="142" text-anchor="end" font-size="12" fill="#555555">x</text>
+  <rect x="548" y="75" width="24" height="75" fill="#3b78c2" fill-opacity="0.18" stroke="#3b78c2" stroke-width="1.5"/>
+  <rect x="548" y="147" width="24" height="6" fill="#3b78c2"/>
+  <text x="560" y="170" text-anchor="middle" font-size="12" fill="#3b78c2">dx</text>
+  <text x="542" y="115" text-anchor="end" font-size="12" fill="#3b78c2">f(x)</text>
+  <line x1="548" y1="153" x2="552" y2="327" stroke="#888888" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <line x1="572" y1="153" x2="568" y2="327" stroke="#888888" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="578" y="245" font-size="13" font-style="italic" fill="#666666">g</text>
+  <line x1="420" y1="330" x2="700" y2="330" stroke="#555555" stroke-width="1.5"/>
+  <text x="700" y="322" text-anchor="end" font-size="12" fill="#555555">y = g(x)</text>
+  <rect x="552" y="217" width="16" height="113" fill="#c96a2a" fill-opacity="0.18" stroke="#c96a2a" stroke-width="1.5"/>
+  <rect x="552" y="327" width="16" height="6" fill="#c96a2a"/>
+  <text x="560" y="352" text-anchor="middle" font-size="12" fill="#c96a2a">narrower segment</text>
+  <text x="560" y="382" text-anchor="middle" font-size="13" fill="#1f2430">same area, higher density</text>
+</svg>

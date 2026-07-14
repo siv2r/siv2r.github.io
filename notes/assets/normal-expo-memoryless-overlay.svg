@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#666666"/>
+    </marker>
+  </defs>
+  <rect width="760" height="360" fill="#ffffff"/>
+  <text x="380" y="26" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2430">Memorylessness: survive to s and the clock restarts</text>
+
+  <!-- axes -->
+  <line x1="60" y1="300" x2="700" y2="300" stroke="#555555" stroke-width="1.5"/>
+  <line x1="60" y1="300" x2="60" y2="70" stroke="#555555" stroke-width="1.5"/>
+  <line x1="56" y1="80" x2="64" y2="80" stroke="#555555" stroke-width="1.2"/>
+  <text x="48" y="84" text-anchor="end" font-size="12" fill="#555555">1</text>
+  <text x="60" y="318" text-anchor="middle" font-size="12" fill="#555555">0</text>
+
+  <!-- shaded tail past s -->
+  <polygon points="240,300 240,250.9 270,261.8 300,270.2 330,276.8 360,281.9 390,285.9 420,289 450,291.5 480,293.4 510,294.8 540,296 570,296.9 600,297.6 630,298.1 660,298.5 660,300" fill="#3b78c2" fill-opacity="0.10"/>
+
+  <!-- original survival curve -->
+  <path d="M 60 80 L 90 128.7 L 120 166.6 L 150 196.1 L 180 219.1 L 210 237 L 240 250.9 L 270 261.8 L 300 270.2 L 330 276.8 L 360 281.9 L 390 285.9 L 420 289 L 450 291.5 L 480 293.4 L 510 294.8 L 540 296 L 570 296.9 L 600 297.6 L 630 298.1 L 660 298.5" fill="none" stroke="#3b78c2" stroke-width="2"/>
+  <text x="130" y="140" font-size="13" fill="#3b78c2">P(X &gt; t) = e<tspan dy="-6" font-size="10">−λt</tspan></text>
+
+  <!-- s marker -->
+  <line x1="240" y1="300" x2="240" y2="78" stroke="#888888" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="240" y="318" text-anchor="middle" font-size="12" fill="#555555">s</text>
+
+  <!-- restarted curve: tail rescaled to full height at s -->
+  <path d="M 240 80 L 270 128.7 L 300 166.6 L 330 196.1 L 360 219.1 L 390 237 L 420 250.9 L 450 261.8 L 480 270.2 L 510 276.8 L 540 281.9 L 570 285.9 L 600 289 L 630 291.5 L 660 293.4" fill="none" stroke="#c96a2a" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="445" y="155" font-size="13" fill="#c96a2a">given X &gt; s, the rest of the wait</text>
+  <text x="445" y="173" font-size="12" fill="#666666">runs on this same curve, restarted at s</text>
+
+  <!-- blow-up arrow -->
+  <line x1="300" y1="264" x2="300" y2="174" stroke="#666666" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <text x="308" y="222" font-size="12" fill="#666666">÷ e<tspan dy="-5" font-size="10">−λs</tspan></text>
+
+  <text x="380" y="344" text-anchor="middle" font-size="13" fill="#1f2430">The tail past s, rescaled back to full height, is the original curve. The past is erased.</text>
+</svg>

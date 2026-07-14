@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" font-family="Helvetica, Arial, sans-serif">
+  <rect width="760" height="400" fill="#ffffff"/>
+  <text x="380" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2430">Same support, different distribution: U vs U²</text>
+  <defs>
+    <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#888888"/>
+    </marker>
+  </defs>
+
+  <!-- left panel: U -->
+  <text x="200" y="58" text-anchor="middle" font-size="14" fill="#3b78c2">U ~ Unif(0,1): flat density, even draws</text>
+  <rect x="70" y="220" width="260" height="80" fill="#3b78c2" fill-opacity="0.12"/>
+  <line x1="70" y1="220" x2="330" y2="220" stroke="#3b78c2" stroke-width="2"/>
+  <line x1="70" y1="300" x2="70" y2="220" stroke="#3b78c2" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="330" y1="300" x2="330" y2="220" stroke="#3b78c2" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="200" y="210" text-anchor="middle" font-size="13" font-style="italic" fill="#3b78c2">f(u) = 1</text>
+  <line x1="60" y1="300" x2="340" y2="300" stroke="#555555" stroke-width="1.5"/>
+  <text x="70" y="318" text-anchor="middle" font-size="12" fill="#555555">0</text>
+  <text x="330" y="318" text-anchor="middle" font-size="12" fill="#555555">1</text>
+  <circle cx="83" cy="300" r="4" fill="#3b78c2"/>
+  <circle cx="109" cy="300" r="4" fill="#3b78c2"/>
+  <circle cx="135" cy="300" r="4" fill="#3b78c2"/>
+  <circle cx="161" cy="300" r="4" fill="#3b78c2"/>
+  <circle cx="187" cy="300" r="4" fill="#3b78c2"/>
+  <circle cx="213" cy="300" r="4" fill="#3b78c2"/>
+  <circle cx="239" cy="300" r="4" fill="#3b78c2"/>
+  <circle cx="265" cy="300" r="4" fill="#3b78c2"/>
+  <circle cx="291" cy="300" r="4" fill="#3b78c2"/>
+  <circle cx="317" cy="300" r="4" fill="#3b78c2"/>
+  <text x="200" y="337" text-anchor="middle" font-size="12" fill="#555555">evenly spaced draws of U</text>
+
+  <!-- arrow between panels -->
+  <line x1="345" y1="185" x2="415" y2="185" stroke="#888888" stroke-width="1.5" marker-end="url(#arr2)"/>
+  <text x="380" y="172" text-anchor="middle" font-size="13" fill="#666666">u → u²</text>
+
+  <!-- right panel: U squared -->
+  <text x="560" y="58" text-anchor="middle" font-size="14" fill="#c96a2a">U²: density 1/(2√x), draws pile near 0</text>
+  <path d="M439,86 L443,121 L451,159 L461,185 L477,206 L495,220 L521,232 L560,243 L599,250 L638,255 L690,260 L690,300 L439,300 Z" fill="#c96a2a" fill-opacity="0.12" stroke="none"/>
+  <path d="M439,86 L443,121 L451,159 L461,185 L477,206 L495,220 L521,232 L560,243 L599,250 L638,255 L690,260" fill="none" stroke="#c96a2a" stroke-width="2"/>
+  <text x="455" y="82" font-size="12" fill="#c96a2a">blows up near 0</text>
+  <text x="560" y="205" text-anchor="middle" font-size="13" font-style="italic" fill="#c96a2a">f(x) = 1/(2√x)</text>
+  <line x1="420" y1="300" x2="700" y2="300" stroke="#555555" stroke-width="1.5"/>
+  <text x="430" y="318" text-anchor="middle" font-size="12" fill="#555555">0</text>
+  <text x="690" y="318" text-anchor="middle" font-size="12" fill="#555555">1</text>
+  <circle cx="431" cy="300" r="4" fill="#c96a2a"/>
+  <circle cx="436" cy="300" r="4" fill="#c96a2a"/>
+  <circle cx="446" cy="300" r="4" fill="#c96a2a"/>
+  <circle cx="462" cy="300" r="4" fill="#c96a2a"/>
+  <circle cx="483" cy="300" r="4" fill="#c96a2a"/>
+  <circle cx="509" cy="300" r="4" fill="#c96a2a"/>
+  <circle cx="540" cy="300" r="4" fill="#c96a2a"/>
+  <circle cx="576" cy="300" r="4" fill="#c96a2a"/>
+  <circle cx="618" cy="300" r="4" fill="#c96a2a"/>
+  <circle cx="665" cy="300" r="4" fill="#c96a2a"/>
+  <text x="560" y="337" text-anchor="middle" font-size="12" fill="#555555">the same draws, squared: about 70% land below 1/2</text>
+
+  <text x="380" y="378" text-anchor="middle" font-size="13" fill="#1f2430">Every value in (0,1) is still possible, but squaring compressed the segments near 0, so the density rose there.</text>
+</svg>
