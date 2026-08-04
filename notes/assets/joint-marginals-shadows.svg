@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 248" font-family="-apple-system, Segoe UI, Roboto, sans-serif">
+
+  <!-- ============ TABLE 1: Y = 1 - X ============ -->
+  <g transform="translate(20,0)">
+    <text x="82" y="30" text-anchor="middle" font-size="12" fill="#999">Y = 1 − X</text>
+    <text x="82" y="46" text-anchor="middle" font-size="11" fill="#4a90d9">opposite faces</text>
+    <!-- highlight TL cell -->
+    <rect x="44" y="64" width="38" height="38" fill="#4a90d9" fill-opacity="0.18"/>
+    <rect x="44" y="64" width="76" height="76" fill="none" stroke="#888"/>
+    <line x1="82" y1="64" x2="82" y2="140" stroke="#888"/>
+    <line x1="44" y1="102" x2="120" y2="102" stroke="#888"/>
+    <text x="63" y="57" text-anchor="middle" font-size="10" fill="#999">Y=1</text>
+    <text x="101" y="57" text-anchor="middle" font-size="10" fill="#999">Y=0</text>
+    <text x="38" y="87" text-anchor="end" font-size="10" fill="#999">X=1</text>
+    <text x="38" y="125" text-anchor="end" font-size="10" fill="#999">X=0</text>
+    <text x="63" y="87" text-anchor="middle" font-size="13" font-weight="700" fill="#4a90d9">0</text>
+    <text x="101" y="87" text-anchor="middle" font-size="12" fill="#888">1/2</text>
+    <text x="63" y="125" text-anchor="middle" font-size="12" fill="#888">1/2</text>
+    <text x="101" y="125" text-anchor="middle" font-size="12" fill="#888">0</text>
+    <!-- shared-shadow margins -->
+    <text x="63" y="158" text-anchor="middle" font-size="10" fill="#bb9a4a">1/2</text>
+    <text x="101" y="158" text-anchor="middle" font-size="10" fill="#bb9a4a">1/2</text>
+    <text x="132" y="87" text-anchor="start" font-size="10" fill="#bb9a4a">1/2</text>
+    <text x="132" y="125" text-anchor="start" font-size="10" fill="#bb9a4a">1/2</text>
+  </g>
+
+  <!-- ============ TABLE 2: independent ============ -->
+  <g transform="translate(255,0)">
+    <text x="82" y="30" text-anchor="middle" font-size="12" fill="#999">independent</text>
+    <text x="82" y="46" text-anchor="middle" font-size="11" fill="#4a90d9">two separate coins</text>
+    <rect x="44" y="64" width="38" height="38" fill="#4a90d9" fill-opacity="0.18"/>
+    <rect x="44" y="64" width="76" height="76" fill="none" stroke="#888"/>
+    <line x1="82" y1="64" x2="82" y2="140" stroke="#888"/>
+    <line x1="44" y1="102" x2="120" y2="102" stroke="#888"/>
+    <text x="63" y="57" text-anchor="middle" font-size="10" fill="#999">Y=1</text>
+    <text x="101" y="57" text-anchor="middle" font-size="10" fill="#999">Y=0</text>
+    <text x="38" y="87" text-anchor="end" font-size="10" fill="#999">X=1</text>
+    <text x="38" y="125" text-anchor="end" font-size="10" fill="#999">X=0</text>
+    <text x="63" y="87" text-anchor="middle" font-size="13" font-weight="700" fill="#4a90d9">1/4</text>
+    <text x="101" y="87" text-anchor="middle" font-size="12" fill="#888">1/4</text>
+    <text x="63" y="125" text-anchor="middle" font-size="12" fill="#888">1/4</text>
+    <text x="101" y="125" text-anchor="middle" font-size="12" fill="#888">1/4</text>
+    <text x="63" y="158" text-anchor="middle" font-size="10" fill="#bb9a4a">1/2</text>
+    <text x="101" y="158" text-anchor="middle" font-size="10" fill="#bb9a4a">1/2</text>
+    <text x="132" y="87" text-anchor="start" font-size="10" fill="#bb9a4a">1/2</text>
+    <text x="132" y="125" text-anchor="start" font-size="10" fill="#bb9a4a">1/2</text>
+  </g>
+
+  <!-- ============ TABLE 3: Y = X ============ -->
+  <g transform="translate(490,0)">
+    <text x="82" y="30" text-anchor="middle" font-size="12" fill="#999">Y = X</text>
+    <text x="82" y="46" text-anchor="middle" font-size="11" fill="#4a90d9">same face</text>
+    <rect x="44" y="64" width="38" height="38" fill="#4a90d9" fill-opacity="0.18"/>
+    <rect x="44" y="64" width="76" height="76" fill="none" stroke="#888"/>
+    <line x1="82" y1="64" x2="82" y2="140" stroke="#888"/>
+    <line x1="44" y1="102" x2="120" y2="102" stroke="#888"/>
+    <text x="63" y="57" text-anchor="middle" font-size="10" fill="#999">Y=1</text>
+    <text x="101" y="57" text-anchor="middle" font-size="10" fill="#999">Y=0</text>
+    <text x="38" y="87" text-anchor="end" font-size="10" fill="#999">X=1</text>
+    <text x="38" y="125" text-anchor="end" font-size="10" fill="#999">X=0</text>
+    <text x="63" y="87" text-anchor="middle" font-size="13" font-weight="700" fill="#4a90d9">1/2</text>
+    <text x="101" y="87" text-anchor="middle" font-size="12" fill="#888">0</text>
+    <text x="63" y="125" text-anchor="middle" font-size="12" fill="#888">0</text>
+    <text x="101" y="125" text-anchor="middle" font-size="12" fill="#888">1/2</text>
+    <text x="63" y="158" text-anchor="middle" font-size="10" fill="#bb9a4a">1/2</text>
+    <text x="101" y="158" text-anchor="middle" font-size="10" fill="#bb9a4a">1/2</text>
+    <text x="132" y="87" text-anchor="start" font-size="10" fill="#bb9a4a">1/2</text>
+    <text x="132" y="125" text-anchor="start" font-size="10" fill="#bb9a4a">1/2</text>
+  </g>
+
+  <!-- shared caption -->
+  <text x="360" y="200" text-anchor="middle" font-size="12" fill="#888">Same margins <tspan fill="#bb9a4a">(1/2, 1/2)</tspan> both ways in all three, so the marginals cannot tell them apart.</text>
+  <text x="360" y="222" text-anchor="middle" font-size="12" fill="#888">Only the highlighted joint cell <tspan fill="#4a90d9" font-weight="700">P(X=1, Y=1)</tspan> changes: 0, 1/4, 1/2.</text>
+</svg>
