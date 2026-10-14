@@ -40,11 +40,31 @@ test('sources footer renders kept links only', () => {
   assert.match(html, /eprint\.iacr\.org/)
 })
 
-test('index page lists sections, slugs as link text, and blurbs', () => {
-  const html = renderIndexPage([
-    { heading: 'Probability', notes: [{ slug: 'conditional-probability', blurb: 'P given B' }] }
-  ])
-  assert.match(html, /Probability/)
-  assert.match(html, /<a href="\/notes\/conditional-probability\/">conditional-probability<\/a>/)
-  assert.match(html, /P given B/)
+const sections = [
+  { heading: 'Bitcoin & FROST', notes: [{ slug: 'musig2-linearity-insight', blurb: null }] },
+  { heading: 'Probability', notes: [{ slug: 'conditional-probability', blurb: 'P given B' }] }
+]
+
+test('index lists every note with a readable title, its topic, and its blurb', () => {
+  const html = renderIndexPage(sections)
+  assert.match(html, /<li data-slug="conditional-probability" data-topic="probability"><a href="\/notes\/conditional-probability\/"><span class="title">Conditional probability<\/span><span class="topic">Probability<\/span><span class="blurb">P given B<\/span>/)
+  assert.match(html, /<span class="title">MuSig2 linearity insight<\/span><span class="topic">Bitcoin &amp; FROST<\/span>/)
+  assert.match(html, /<p class="notes-count" aria-live="polite">2 notes<\/p>/)
+})
+
+test('topic filters come from the sections, All first, and ship hidden until JS', () => {
+  const html = renderIndexPage(sections)
+  const keys = [...html.matchAll(/<button type="button" data-topic="([^"]*)"/g)].map(m => m[1])
+  assert.deepEqual(keys, ['', 'bitcoin--frost', 'probability'])
+  assert.match(html, /<div class="notes-tools" hidden>/)
+  assert.match(html, /src="\/scripts\/notes-index\.js"/)
+})
+
+test('featured card is one link with label, title, excerpt, and decorative image', () => {
+  const html = renderIndexPage(sections, { featured: { slug: 'musig2-linearity-insight', excerpt: 'Linearity is the trick.', image: '/notes/assets/x.svg' } })
+  assert.match(html, /<a class="featured" href="\/notes\/musig2-linearity-insight\/">/)
+  assert.match(html, /Featured note<span class="sep">·<\/span>Bitcoin &amp; FROST/)
+  assert.match(html, /<span class="featured-excerpt">Linearity is the trick\.<\/span>/)
+  assert.match(html, /<img src="\/notes\/assets\/x\.svg" alt=""/)
+  assert.ok(!renderIndexPage(sections).includes('class="featured'))
 })

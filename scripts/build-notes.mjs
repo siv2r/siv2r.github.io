@@ -40,9 +40,10 @@ function main() {
   if (!existsSync(KNOWLEDGE)) die(`vault knowledge dir not found at ${KNOWLEDGE} (set VAULT_PATH)`)
 
   const manifest = parseManifest(readFileSync(join(KNOWLEDGE, '_published.md'), 'utf8'))
-  const { sections, publishSet } = manifest
+  const { sections, publishSet, featured } = manifest
   const slugs = [...publishSet]
   if (slugs.length === 0) die('manifest yielded zero notes, refusing to wipe notes/')
+  if (featured && !publishSet.has(featured.slug)) die(`Featured note "${featured.slug}" is not in the publish list`)
 
   // Pre-flight: every slug must have a source file.
   const missing = slugs.filter(s => !existsSync(join(KNOWLEDGE, `${s}.md`)))
@@ -59,6 +60,8 @@ function main() {
 
   const report = { notes: 0, assets: 0, unresolved: new Set(), skippedSources: [], missingEmbeds: [] }
   const allAssets = new Set()
+  const search = []      // [{ s: slug, t: page text }], published notes only, feeds /notes/search.json
+  let featuredCard = null
 
   // Convert and write each note (async, awaited sequentially for stable output).
   const run = async () => {
@@ -73,6 +76,9 @@ function main() {
       data.missingEmbeds.forEach(e => report.missingEmbeds.push(`${slug}: ${e}`))
       data.assets.forEach(a => allAssets.add(a))
 
+      search.push({ s: slug, t: data.text })
+      if (featured?.slug === slug) featuredCard = { slug, excerpt: featured.excerpt ?? data.excerpt, image: data.firstImage ?? null }
+
       const created = fm.created ? new Date(fm.created).toDateString() : null
       const page = renderNotePage({ slug, bodyHtml: html, created, blurb: blurbFor(slug, sections), sources: kept })
       mkdirSync(join(STAGING, slug), { recursive: true })
@@ -80,7 +86,10 @@ function main() {
       report.notes++
     }
 
-    writeFileSync(join(STAGING, 'index.html'), renderIndexPage(sections))
+    writeFileSync(join(STAGING, 'index.html'), renderIndexPage(sections, { featured: featuredCard }))
+    const searchJson = JSON.stringify(search)
+    writeFileSync(join(STAGING, 'search.json'), searchJson)
+    report.searchKb = (Buffer.byteLength(searchJson) / 1024).toFixed(1)
 
     for (const abs of allAssets) {
       cpSync(abs, join(STAGING, 'assets', basename(abs)))
@@ -105,6 +114,7 @@ function blurbFor(slug, sections) {
 function printReport(r) {
   console.log(`\nnotes written: ${r.notes}`)
   console.log(`assets copied: ${r.assets}`)
+  console.log(`search index: ${r.searchKb} KB`)
   if (r.unresolved.size) console.log(`unresolved wikilinks (rendered as plain text):\n  ${[...r.unresolved].join('\n  ')}`)
   if (r.skippedSources.length) console.log(`private sources skipped:\n  ${r.skippedSources.join('\n  ')}`)
   if (r.missingEmbeds.length) console.log(`embeds with no export (dropped):\n  ${r.missingEmbeds.join('\n  ')}`)

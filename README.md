@@ -14,7 +14,8 @@ Deployed at https://siv2r.github.io/ via GitHub Pages.
 ├── work/index.html          /work
 ├── contact/index.html       /contact
 ├── notes/                   /notes  (generated, committed)
-│   ├── index.html           grouped list of published notes
+│   ├── index.html           featured note, search, topic filters, note list
+│   ├── search.json          full-text search data for the index
 │   ├── <slug>/index.html    one directory per note
 │   └── assets/              copied images and Excalidraw exports
 ├── 404.html
@@ -23,6 +24,7 @@ Deployed at https://siv2r.github.io/ via GitHub Pages.
 ├── photos/                  portrait-{1..4}.jpg
 ├── scripts/
 │   ├── rotate.js            cross-fades portraits on the home page
+│   ├── notes-index.js       search and topic filters on /notes/
 │   ├── sync-substack.mjs    run hourly by CI, rewrites the Recent list
 │   ├── build-notes.mjs      builds /notes/ from the Obsidian vault
 │   ├── build-notes.sh       wrapper for build-notes.mjs

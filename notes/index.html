@@ -30,60 +30,71 @@
         <a href="/contact/">contact</a>
       </nav>
     </header>
-    <main>
-      <p class="intro">My thinking box: mental models, aha moments, and random explorations as I learn a topic deeply.</p>
-      <div class="note-index">
-      <section class="note-group">
-        <h2>Bitcoin &amp; FROST</h2>
-        <ul>
-        <li><a href="/notes/chilldkg-protocol-summary/">chilldkg-protocol-summary</a></li>
-        <li><a href="/notes/ec-curve-symmetry-finite-field/">ec-curve-symmetry-finite-field</a></li>
-        <li><a href="/notes/ecmult-multi-algorithm-selection/">ecmult-multi-algorithm-selection</a></li>
-        <li><a href="/notes/frost-shamir-degree-constraint/">frost-shamir-degree-constraint</a></li>
-        <li><a href="/notes/lagrange-offset-property/">lagrange-offset-property</a></li>
-        <li><a href="/notes/musig2-linearity-insight/">musig2-linearity-insight</a></li>
-        <li><a href="/notes/nonce-fn-defense-in-depth-inputs/">nonce-fn-defense-in-depth-inputs</a></li>
-        <li><a href="/notes/nonce-hash-sufficient-statistic/">nonce-hash-sufficient-statistic</a></li>
-        <li><a href="/notes/strauss-calibration-mental-model/">strauss-calibration-mental-model</a></li>
-        <li><a href="/notes/swiftsync-protocol/">swiftsync-protocol</a></li>
-        <li><a href="/notes/swiftsync-undo-data-self-contained-blocks/">swiftsync-undo-data-self-contained-blocks</a></li>
-        </ul>
-      </section>
-      <section class="note-group">
-        <h2>Mathematics</h2>
-        <ul>
-        <li><a href="/notes/combining-random-variables/">combining-random-variables</a></li>
-        <li><a href="/notes/conditional-probability/">conditional-probability</a></li>
-        <li><a href="/notes/discrete-joint-distributions/">discrete-joint-distributions</a></li>
-        <li><a href="/notes/exponential-survival-first/">exponential-survival-first</a></li>
-        <li><a href="/notes/joint-distribution-mental-model/">joint-distribution-mental-model</a></li>
-        <li><a href="/notes/lotus-and-variance/">lotus-and-variance</a></li>
-        <li><a href="/notes/normal-and-exponential-distributions/">normal-and-exponential-distributions</a></li>
-        <li><a href="/notes/one-to-one-proof-converse-trap/">one-to-one-proof-converse-trap</a></li>
-        <li><a href="/notes/onto-functions/">onto-functions</a></li>
-        <li><a href="/notes/pdf-and-cdf-basics/">pdf-and-cdf-basics</a></li>
-        <li><a href="/notes/pebble-grouping/">pebble-grouping</a></li>
-        <li><a href="/notes/probability-distributions-and-random-variables/">probability-distributions-and-random-variables</a></li>
-        <li><a href="/notes/random-walk-is-binomial/">random-walk-is-binomial</a></li>
-        </ul>
-      </section>
-      <section class="note-group">
-        <h2>Computer Science</h2>
-        <ul>
-        <li><a href="/notes/asymptotic-analysis/">asymptotic-analysis</a></li>
-        </ul>
-      </section>
-      <section class="note-group">
-        <h2>Cryptography</h2>
-        <ul>
-        <li><a href="/notes/fermats-little-theorem-proof/">fermats-little-theorem-proof</a></li>
-        <li><a href="/notes/modular-inverse-coprime-property/">modular-inverse-coprime-property</a></li>
-        <li><a href="/notes/otp-security-proof/">otp-security-proof</a></li>
-        <li><a href="/notes/why-negligible-funcs/">why-negligible-funcs</a></li>
-        </ul>
-      </section>
+    <main class="notes-index">
+      <h1>My thinking box</h1>
+      <p class="intro">Mental models, aha moments, and random explorations as I learn a topic deeply.</p>
+      <a class="featured" href="/notes/lagrange-offset-property/">
+        <span class="featured-text">
+          <span class="featured-label">Featured note<span class="sep">·</span>Bitcoin &amp; FROST</span>
+          <span class="featured-title">Lagrange offset property</span>
+          <span class="featured-excerpt">In a t-of-n Shamir secret sharing scheme, if you add a constant t to every share, the reconstructed secret shifts by exactly t.</span>
+          <span class="featured-cta">Read the note <span class="arrow" aria-hidden="true">→</span></span>
+        </span>
+        <img src="/notes/assets/lagrange-offset-property.jpg" alt="" decoding="async">
+      </a>
+      <div class="notes-tools" hidden>
+        <div class="notes-search">
+          <label class="visually-hidden" for="notes-q">Search notes</label>
+          <input id="notes-q" type="search" placeholder="Find an idea…" autocomplete="off" spellcheck="false">
+          <kbd aria-hidden="true">/</kbd>
+        </div>
+        <div class="notes-topics" role="group" aria-label="Filter by topic">
+          <button type="button" data-topic="" aria-pressed="true">All</button>
+          <button type="button" data-topic="bitcoin--frost" aria-pressed="false">Bitcoin &amp; FROST</button>
+          <button type="button" data-topic="mathematics" aria-pressed="false">Mathematics</button>
+          <button type="button" data-topic="computer-science" aria-pressed="false">Computer Science</button>
+          <button type="button" data-topic="cryptography" aria-pressed="false">Cryptography</button>
+          <span class="notes-topics-bar" aria-hidden="true"></span>
+        </div>
+      </div>
+      <p class="notes-count" aria-live="polite">29 notes</p>
+      <ol class="notes-list">
+        <li data-slug="chilldkg-protocol-summary" data-topic="bitcoin--frost"><a href="/notes/chilldkg-protocol-summary/"><span class="title">ChillDKG protocol summary</span><span class="topic">Bitcoin &amp; FROST</span></a></li>
+        <li data-slug="ec-curve-symmetry-finite-field" data-topic="bitcoin--frost"><a href="/notes/ec-curve-symmetry-finite-field/"><span class="title">EC curve symmetry finite field</span><span class="topic">Bitcoin &amp; FROST</span></a></li>
+        <li data-slug="ecmult-multi-algorithm-selection" data-topic="bitcoin--frost"><a href="/notes/ecmult-multi-algorithm-selection/"><span class="title">ecmult_multi algorithm selection</span><span class="topic">Bitcoin &amp; FROST</span></a></li>
+        <li data-slug="frost-shamir-degree-constraint" data-topic="bitcoin--frost"><a href="/notes/frost-shamir-degree-constraint/"><span class="title">FROST Shamir degree constraint</span><span class="topic">Bitcoin &amp; FROST</span></a></li>
+        <li data-slug="lagrange-offset-property" data-topic="bitcoin--frost"><a href="/notes/lagrange-offset-property/"><span class="title">Lagrange offset property</span><span class="topic">Bitcoin &amp; FROST</span></a></li>
+        <li data-slug="musig2-linearity-insight" data-topic="bitcoin--frost"><a href="/notes/musig2-linearity-insight/"><span class="title">MuSig2 linearity insight</span><span class="topic">Bitcoin &amp; FROST</span></a></li>
+        <li data-slug="nonce-fn-defense-in-depth-inputs" data-topic="bitcoin--frost"><a href="/notes/nonce-fn-defense-in-depth-inputs/"><span class="title">Nonce fn defense-in-depth inputs</span><span class="topic">Bitcoin &amp; FROST</span></a></li>
+        <li data-slug="nonce-hash-sufficient-statistic" data-topic="bitcoin--frost"><a href="/notes/nonce-hash-sufficient-statistic/"><span class="title">Nonce hash sufficient statistic</span><span class="topic">Bitcoin &amp; FROST</span></a></li>
+        <li data-slug="strauss-calibration-mental-model" data-topic="bitcoin--frost"><a href="/notes/strauss-calibration-mental-model/"><span class="title">Strauss calibration mental model</span><span class="topic">Bitcoin &amp; FROST</span></a></li>
+        <li data-slug="swiftsync-protocol" data-topic="bitcoin--frost"><a href="/notes/swiftsync-protocol/"><span class="title">SwiftSync protocol</span><span class="topic">Bitcoin &amp; FROST</span></a></li>
+        <li data-slug="swiftsync-undo-data-self-contained-blocks" data-topic="bitcoin--frost"><a href="/notes/swiftsync-undo-data-self-contained-blocks/"><span class="title">SwiftSync undo data self-contained blocks</span><span class="topic">Bitcoin &amp; FROST</span></a></li>
+        <li data-slug="combining-random-variables" data-topic="mathematics"><a href="/notes/combining-random-variables/"><span class="title">Combining random variables</span><span class="topic">Mathematics</span></a></li>
+        <li data-slug="conditional-probability" data-topic="mathematics"><a href="/notes/conditional-probability/"><span class="title">Conditional probability</span><span class="topic">Mathematics</span></a></li>
+        <li data-slug="discrete-joint-distributions" data-topic="mathematics"><a href="/notes/discrete-joint-distributions/"><span class="title">Discrete joint distributions</span><span class="topic">Mathematics</span></a></li>
+        <li data-slug="exponential-survival-first" data-topic="mathematics"><a href="/notes/exponential-survival-first/"><span class="title">Exponential survival first</span><span class="topic">Mathematics</span></a></li>
+        <li data-slug="joint-distribution-mental-model" data-topic="mathematics"><a href="/notes/joint-distribution-mental-model/"><span class="title">Joint distribution mental model</span><span class="topic">Mathematics</span></a></li>
+        <li data-slug="lotus-and-variance" data-topic="mathematics"><a href="/notes/lotus-and-variance/"><span class="title">LOTUS and variance</span><span class="topic">Mathematics</span></a></li>
+        <li data-slug="normal-and-exponential-distributions" data-topic="mathematics"><a href="/notes/normal-and-exponential-distributions/"><span class="title">Normal and exponential distributions</span><span class="topic">Mathematics</span></a></li>
+        <li data-slug="one-to-one-proof-converse-trap" data-topic="mathematics"><a href="/notes/one-to-one-proof-converse-trap/"><span class="title">One-to-one proof converse trap</span><span class="topic">Mathematics</span></a></li>
+        <li data-slug="onto-functions" data-topic="mathematics"><a href="/notes/onto-functions/"><span class="title">Onto functions</span><span class="topic">Mathematics</span></a></li>
+        <li data-slug="pdf-and-cdf-basics" data-topic="mathematics"><a href="/notes/pdf-and-cdf-basics/"><span class="title">PDF and CDF basics</span><span class="topic">Mathematics</span></a></li>
+        <li data-slug="pebble-grouping" data-topic="mathematics"><a href="/notes/pebble-grouping/"><span class="title">Pebble grouping</span><span class="topic">Mathematics</span></a></li>
+        <li data-slug="probability-distributions-and-random-variables" data-topic="mathematics"><a href="/notes/probability-distributions-and-random-variables/"><span class="title">Probability distributions and random variables</span><span class="topic">Mathematics</span></a></li>
+        <li data-slug="random-walk-is-binomial" data-topic="mathematics"><a href="/notes/random-walk-is-binomial/"><span class="title">Random walk is binomial</span><span class="topic">Mathematics</span></a></li>
+        <li data-slug="asymptotic-analysis" data-topic="computer-science"><a href="/notes/asymptotic-analysis/"><span class="title">Asymptotic analysis</span><span class="topic">Computer Science</span></a></li>
+        <li data-slug="fermats-little-theorem-proof" data-topic="cryptography"><a href="/notes/fermats-little-theorem-proof/"><span class="title">Fermat's little theorem proof</span><span class="topic">Cryptography</span></a></li>
+        <li data-slug="modular-inverse-coprime-property" data-topic="cryptography"><a href="/notes/modular-inverse-coprime-property/"><span class="title">Modular inverse coprime property</span><span class="topic">Cryptography</span></a></li>
+        <li data-slug="otp-security-proof" data-topic="cryptography"><a href="/notes/otp-security-proof/"><span class="title">OTP security proof</span><span class="topic">Cryptography</span></a></li>
+        <li data-slug="why-negligible-funcs" data-topic="cryptography"><a href="/notes/why-negligible-funcs/"><span class="title">Why negligible funcs</span><span class="topic">Cryptography</span></a></li>
+      </ol>
+      <div class="notes-empty" hidden>
+        <p>Nothing matches <q class="notes-empty-q"></q>.</p>
+        <button type="button" class="notes-clear">Clear search</button>
       </div>
     </main>
   </div>
+  <script src="/scripts/notes-index.js" defer></script>
 </body>
 </html>

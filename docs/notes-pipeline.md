@@ -45,7 +45,8 @@ environment variable.
         |
         v
 notes/
-  index.html           grouped list of all published notes
+  index.html           featured note, search, topic filters, list of all notes
+  search.json          rendered text of published notes, for full-text search
   <slug>/index.html    one directory per note
   assets/              copied images and drawings
 ```
@@ -74,6 +75,9 @@ The format is plain Markdown, parsed by
   filename without `.md`.
 - `- [[slug]]: blurb` adds a note with an optional blurb after the colon. The
   blurb shows on the index and becomes the page's meta description.
+- `Featured: [[slug]]` (optional `: excerpt`) picks the large card at the top of
+  `/notes/`. The slug must also be listed in a section, or the build stops. Without
+  an excerpt, the note's first paragraph is used, and its first image is shown.
 - HTML comment blocks (`<!-- ... -->`) are stripped before parsing, so commented
   out example entries never publish.
 
@@ -192,8 +196,11 @@ has no Markdown knowledge, it only assembles strings.
 - `renderNotePage(...)`: the per-note page. Title from the slug, the converted
   body, an optional date line from `frontmatter.created`, and the filtered
   sources footer.
-- `renderIndexPage(sections)`: the `/notes/` landing page, grouping notes under
-  their manifest headings with blurbs.
+- `renderIndexPage(sections, { featured })`: the `/notes/` landing page. A featured
+  card, a search field, topic filters (one per manifest heading, plus All), and a
+  flat list with readable titles. Search and filters are progressive enhancement
+  from `scripts/notes-index.js`, which also fetches `notes/search.json` (the
+  rendered text of published notes, written by the build) on first use.
 - `topbar(active)`: the shared site nav, including the `notes` link. The active
   tab gets `aria-current="page"`.
 - `head(...)`: shared `<head>` with Open Graph and Twitter card meta, Google
@@ -216,7 +223,8 @@ The build writes, and you commit, this tree under `notes/`:
 
 ```
 notes/
-  index.html              grouped list, generated from the manifest
+  index.html              notes index, generated from the manifest
+  search.json             full-text search data, generated
   <slug>/index.html       one clean-URL directory per published note
   assets/                 every referenced image and drawing, flat by basename
 ```

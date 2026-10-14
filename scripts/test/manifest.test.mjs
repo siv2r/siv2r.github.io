@@ -39,3 +39,15 @@ test('publishSet contains all listed slugs', () => {
   assert.equal(publishSet.size, 3)
   assert.ok(publishSet.has('conditional-probability'))
 })
+
+test('parses the Featured line, ignoring the one inside the comment block', () => {
+  const { featured, publishSet } = parseManifest(sample)
+  assert.deepEqual(featured, { slug: 'lagrange-offset-property', excerpt: null })
+  assert.ok(!publishSet.has('note-name'))
+})
+
+test('Featured line takes an optional excerpt and is absent when not given', () => {
+  assert.deepEqual(parseManifest('featured: [[a-b]]: the short pitch\n## S\n- [[a-b]]').featured,
+    { slug: 'a-b', excerpt: 'the short pitch' })
+  assert.equal(parseManifest('## S\n- [[a-b]]').featured, null)
+})
